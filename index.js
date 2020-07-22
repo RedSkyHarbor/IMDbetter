@@ -2,9 +2,17 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 5000;
 
+// Serve static files from the React application
+app.use(express.static(path.join(__dirname, 'client/build')));
+
 // API endpoints
 app.get('/', (req, res) => {
 	res.json({ info: 'Hello World!'})
+});
+
+// Any request that matches none of the above endpoints returns React application's index page
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
 
 app.listen(port, () => {
