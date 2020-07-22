@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 class AllMovies extends Component {
     state = { movies: [] }
@@ -15,7 +16,7 @@ class AllMovies extends Component {
             <ul>
                 { movies.map(movie =>
                     <li key={movie.id}>
-                        <h1>{movie.title}</h1>
+                        <h1><Link to={`/movie/${movie.id}`}>{movie.title}</Link></h1>
                         <p>{movie.description}</p>
                         <p>{movie.rating}</p>
                         <p>{movie.release_year}</p>
