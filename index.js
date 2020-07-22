@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const path = require('path');
 const { pool } = require('./config');
 const port = process.env.PORT || 5000;
@@ -7,6 +8,9 @@ const app = express();
 
 // Serve static files from the React application
 app.use(express.static(path.join(__dirname, 'client/build')));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(cors());
 
 // Testing endpoint
 app.get('/hello', (req, res) => {
