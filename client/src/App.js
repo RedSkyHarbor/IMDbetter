@@ -1,30 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+
+import HomePage from './pages/HomePage';
+
 import './App.css';
 
-class App extends Component {
-	state = { response: {} }
-  
-	componentDidMount() {
-		this.getInfo();
-	}
 
-	getInfo = () => {
-		fetch('/hello')
-		  .then(res => res.json())
-			  .then(response => this.setState({ response }));
-	}
-
-	render(){
-		const { response } = this.state;
-		return (
-			<div className="App">
-				<header className="App-header">
-					<p>test</p>
-					<p>{ response.info }</p>
-				</header>
-			</div>
-		);
-	}
+function App() {
+	return (
+		<Router>
+			<Switch>
+				<Route exact path='/' component={HomePage} />
+			</Switch>
+		</Router>
+	)
 }
 
 export default App;
