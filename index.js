@@ -38,6 +38,16 @@ const getMovieById = (request, response) => {
 	})
 }
 
+const getComments = (requests, response) => {
+	const movieId = parseInt(requests.params.id);
+	pool.query('SELECT * FROM comments WHERE movieid = $1', [movieId], (error, results) => {
+		if (error) {
+			throw error;
+		}
+		response.status(200).json(results.rows);
+	});
+}
+
 // Any request that matches none of the above endpoints returns React application's index page
 //app.get('*', (req, res) => {
 //	res.sendFile(path.join(__dirname + '/client/build/index.html'));
@@ -49,6 +59,8 @@ app.route('/api')
 app.route('/api/movie/:id')
 	.get(getMovieById)
 
+app.route('/api/comments/:id')
+	.get(getComments)
 
 // Starts server
 app.listen(port, () => {
