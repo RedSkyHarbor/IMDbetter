@@ -14,16 +14,16 @@ CREATE TABLE movies (
 );
 
 INSERT INTO movies (title, slug, summary, rating, release_year, picture_url)
-VALUES ('Spaceballs', 'Spaceballs', 'A star pilot and his sidekick must come to the rescue of a Princess and save the galaxy from a ruthless race of beings known as Spaceballs.', 7.1, 1987, 'https://imgur.com/WJ4IcNG');
+VALUES ('Spaceballs', 'Spaceballs', 'A star pilot and his sidekick must come to the rescue of a Princess and save the galaxy from a ruthless race of beings known as Spaceballs.', 7.1, 1987, 'https://i.imgur.com/WJ4IcNG.jpg');
 
 INSERT INTO movies (title, slug, summary, rating, release_year, picture_url)
-VALUES ('Young Frankenstein', 'Young-Frankenstein', 'An American grandson of the infamous scientist, struggling to prove that his grandfather was not as insane as people believe, is invited to Transylvania, where he discovers the process that reanimates a dead body.', 8.0, 1974, 'https://imgur.com/hOg8EGj');
+VALUES ('Young Frankenstein', 'Young-Frankenstein', 'An American grandson of the infamous scientist, struggling to prove that his grandfather was not as insane as people believe, is invited to Transylvania, where he discovers the process that reanimates a dead body.', 8.0, 1974, 'https://i.imgur.com/hOg8EGj.jpg');
 
 INSERT INTO movies (title, slug, summary, rating, release_year, picture_url)
-VALUES ('Robin Hood: Men in Tights', 'Robin-Hood-Men-In-Tights', 'A spoof of Robin Hood in general, and Robin Hood: Prince of Thieves (1991) in particular.', 6.7, 1993, 'https://imgur.com/xe9mRUm');
+VALUES ('Robin Hood: Men in Tights', 'Robin-Hood-Men-In-Tights', 'A spoof of Robin Hood in general, and Robin Hood: Prince of Thieves (1991) in particular.', 6.7, 1993, 'https://i.imgur.com/xe9mRUm.jpg');
 
 INSERT INTO movies (title, slug, summary, rating, release_year, picture_url)
-VALUES ('The Producers', 'The-Producers', 'A stage-play producer devises a plan to make money by producing a sure-fire flop.', 7.6, 1967, 'https://imgur.com/twgL1fA');
+VALUES ('The Producers', 'The-Producers', 'A stage-play producer devises a plan to make money by producing a sure-fire flop.', 7.6, 1967, 'https://i.imgur.com/twgL1fA.jpg');
 
 /* Users */ 
 CREATE TABLE users (
