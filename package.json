@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Movie database created with React, Express, PostgreSQL and hosted on Heroku",
   "main": "index.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "heroku-postbuild": "cd client && npm install && npm run build",
     "start": "node index.js",
