@@ -2,11 +2,11 @@ import React from 'react';
 
 import Movie from '../components/Movie';
 
-const MoviePage = ({ match }) => {
-    let { id } = match.params; 
+const MoviePage = ({ location }) => {
+    let { movieId } = location.state; 
     return (
         <div>
-            <Movie movieId={id} />
+            <Movie movieId={movieId} />
             <p>comment section / user reviews</p>
         </div>
     );
