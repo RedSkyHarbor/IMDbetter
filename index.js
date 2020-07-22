@@ -14,7 +14,7 @@ app.get('/hello', (req, res) => {
 });
 
 // API endpoints
-const getMovies = (request, response) => {
+const getAllMovies = (request, response) => {
 	pool.query('SELECT * from movies', (error, results) => {
 		if (error) {
 			throw error
@@ -29,7 +29,7 @@ const getMovies = (request, response) => {
 //});
 
 app.route('/api')
-	.get(getMovies)
+	.get(getAllMovies)
 
 
 // Starts server
