@@ -17,7 +17,7 @@ class AllMovies extends Component {
                 { movies.map(movie =>
                     <li key={movie.id}>
                         <h1><Link to={`/movie/${movie.id}`}>{movie.title}</Link></h1>
-                        <img style={{ width: 200, height: 300 }} src={movie.picture_url} />
+                        <img alt='movie poster' style={{ width: 200, height: 300 }} src={movie.picture_url} />
                         <p>{movie.summary}</p>
                         <p>{movie.rating}</p>
                         <p>{movie.release_year}</p>
