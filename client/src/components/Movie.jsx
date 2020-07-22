@@ -6,7 +6,6 @@ class Movie extends Component {
 
     componentDidMount(){
         let movieId = this.props.movieId;
-        console.log(movieId);
         fetch('/api/movie/' + movieId)
             .then(response => response.json())
                 .then(data => this.setState({ data }))
