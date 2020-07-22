@@ -15,11 +15,21 @@ app.get('/hello', (req, res) => {
 
 // API endpoints
 const getAllMovies = (request, response) => {
-	pool.query('SELECT * from movies', (error, results) => {
+	pool.query('SELECT * FROM movies', (error, results) => {
 		if (error) {
-			throw error
+			throw error;
 		}
-		response.status(200).json(results.rows)
+		response.status(200).json(results.rows);
+	})
+}
+
+const getMovieById = (request, response) => {
+	const movieId = parseInt(request.params.id);
+	pool.query('SELECT * FROM movies WHERE id = $1', [movieId], (error, results) => {
+		if (error) {
+			throw error;
+		}
+		response.status(200).json(results.rows);
 	})
 }
 
@@ -30,6 +40,9 @@ const getAllMovies = (request, response) => {
 
 app.route('/api')
 	.get(getAllMovies)
+
+app.route('/api/movie/:id')
+	.get(getMovieById)
 
 
 // Starts server
