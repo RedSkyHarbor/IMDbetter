@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 
 class Movie extends Component {
-    state = { data: [] };
+    constructor(props) {
+        super(props);
+        this.state = { data: [] };
+    }
     
-
     componentDidMount(){
         let movieId = this.props.movieId;
         fetch('/api/movie/' + movieId)
             .then(response => response.json())
-                .then(data => this.setState({ data }))
+                .then(data => this.setState({ data }));
     }
 
     render() { 
