@@ -19,7 +19,7 @@ class Movie extends Component {
                 <div key={d.id}>
                     <h1>Title: {d.title}</h1>
                     <img style={{ width: 200, height: 300 }} src={d.picture_url} />
-                    <p>Description: {d.description}</p>
+                    <p>Description: {d.summary}</p>
                     <p>Rating: {d.rating}</p>
                     <p>Release in: {d.release_year}</p>    
                 </div>  
