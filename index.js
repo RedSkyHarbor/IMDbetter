@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const { pool } = require('./config');
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 const app = express();
 
