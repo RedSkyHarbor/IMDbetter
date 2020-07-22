@@ -1,9 +1,12 @@
 import React from 'react';
 
-const MoviePage = () => {
+import Movie from '../components/Movie';
+
+const MoviePage = ({ match }) => {
+    let { id } = match.params; 
     return (
         <div>
-            <p>movie page</p>
+            <Movie movieId={id} />
             <p>comment section / user reviews</p>
         </div>
     );
