@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class UserSignUp extends Component {
     constructor(props) {
@@ -6,35 +7,82 @@ class UserSignUp extends Component {
         this.state = {
             username: '',
             email: '',
-            password: ''
+            password: '',
         }
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     handleSwitchView = (viewName) =>{
         this.props.onSelectView(viewName);
     }
 
+    handleSubmit = (event) => {
+        const { email, password, username } = this.state;
+        console.log(username, password, email);
+        axios.post('/api/registration', {
+            user: {
+                username: username,
+                email: email,
+                password: password
+            }
+        },
+        { withCredentials: true }
+        )
+        
+
+        console.log("form submitted");
+        event.preventDefault();
+    }
+
+    handleChange = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+    }
+
     render() {
         return (
-            <form>
+            <form onSubmit={this.handleSubmit}>
                 <fieldset>
                     <legend>Sign Up</legend>
                     <ul>
                         <li>
                             <label htmlFor='username'>Username:</label>
-                            <input type='text' id='username' required />
+                            <input
+                                type='text'
+                                id='username' 
+                                name='username' 
+                                value={this.state.username}
+                                onChange={this.handleChange}
+                                required 
+                            />
                         </li>
                         <li>
                             <label htmlFor='email'>Email:</label>
-                            <input type='email' id='email' required />
+                            <input
+                                type='email'
+                                id='email' 
+                                name='email' 
+                                value={this.state.email}
+                                onChange={this.handleChange}
+                                required 
+                            />
                         </li>
                         <li>
                             <label htmlFor='password'>Password:</label>
-                            <input type='password' id='password' required />
+                            <input 
+                                type='password' 
+                                id='password' 
+                                name='password'
+                                value={this.state.password} 
+                                onChange={this.handleChange}
+                                required 
+                            />
                         </li>
                         <li>
-                            <button>Submit</button>
-                            <button type='button' onClick={ () => this.handleSwitchView('login')}>Have an account?</button>
+                            <button type='submit'>Register</button>
+                            <button type='button' onClick={ () => this.handleSwitchView('login')}>Return to Log In</button>
                         </li>
                     </ul>
                 </fieldset>
