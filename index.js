@@ -25,7 +25,7 @@ const getAllMovies = (request, response) => {
 			throw error;
 		}
 		response.status(200).json(results.rows);
-	})
+	});
 }
 
 const getMovieById = (request, response) => {
@@ -35,7 +35,17 @@ const getMovieById = (request, response) => {
 			throw error;
 		}
 		response.status(200).json(results.rows);
-	})
+	});
+}
+
+const getMovieByPartialTitle = (request, response) => {
+	const partialTitle = request.params.substring;
+	pool.query('SELECT * FROM movies WHERE title ILIKE $1', ['%'+partialTitle+'%'], (error, results) => {
+		if (error) {
+			throw error
+		}
+		response.status(200).json(results.rows);
+	});
 }
 
 const getComments = (requests, response) => {
@@ -61,6 +71,9 @@ app.route('/api/movie/:id')
 
 app.route('/api/comments/:id')
 	.get(getComments)
+
+app.route('/api/fuzzysearch/:substring')
+	.get(getMovieByPartialTitle)
 
 // Starts server
 app.listen(port, () => {
