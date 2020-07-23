@@ -1,14 +1,13 @@
 import React from 'react';
 
 import Header from '../components/header/Header';
+import UserLogin from '../components/forms/UserLogin';
 
 const RegistrationPage = () => {
     return (
         <div>
             <Header />
-            <h1>Sign in</h1>  
-            <p>Sign in with IMDbetter</p>
-            <p>Create New Account</p>  
+            <UserLogin />
         </div>
     );
 }
