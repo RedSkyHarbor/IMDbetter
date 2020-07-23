@@ -28,9 +28,9 @@ class UserLogin extends Component {
                             <input type="password" id="password" required/>
                         </li>
                         <li>
-                            <button>Submit</button>
+                            <button>Log In</button>
+                            <button type='button' onClick={ () => this.handleSwitchView('signup')}>Register</button>
                             <button type='button' onClick={ () => this.handleSwitchView('reset')}>Forgot Password?</button>
-                            <button type='button' onClick={ () => this.handleSwitchView('signup')}>Don't Have an Account?</button>
                         </li>
                     </ul>
                 </fieldset>
