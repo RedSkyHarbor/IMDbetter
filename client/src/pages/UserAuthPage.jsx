@@ -1,9 +1,9 @@
 import React from 'react';
 
 import Header from '../components/header/Header';
-import UserLogin from '../components/forms/UserLogin';
+import UserLogin from '../components/auth/UserLogin';
 
-const RegistrationPage = () => {
+const UserAuthPage = () => {
     return (
         <div>
             <Header />
@@ -12,4 +12,4 @@ const RegistrationPage = () => {
     );
 }
 
-export default RegistrationPage;
+export default UserAuthPage;
