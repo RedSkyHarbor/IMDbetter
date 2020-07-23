@@ -58,6 +58,16 @@ const getComments = (requests, response) => {
 	});
 }
 
+const createAccount = (request, response) => {
+	const { username, password, email } = request.body.user;
+	pool.query('INSERT INTO users (uname, pword, email) VALUES ($1, $2, $3)', [username, password, email], (error, results) => {
+		if (error) {
+			throw error;
+		}
+		response.status(201).send(`Account created with ${results}`);
+	});
+}
+
 // Any request that matches none of the above endpoints returns React application's index page
 //app.get('*', (req, res) => {
 //	res.sendFile(path.join(__dirname + '/client/build/index.html'));
@@ -74,6 +84,9 @@ app.route('/api/comments/:id')
 
 app.route('/api/fuzzysearch/:substring')
 	.get(getMovieByPartialTitle)
+
+app.route('/api/registration')
+	.post(createAccount)
 
 // Starts server
 app.listen(port, () => {
