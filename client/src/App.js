@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import HomePage from './pages/HomePage';
 import MoviePage from './pages/MoviePage';
-import RegistrationPage from './pages/RegistrationPage';
-
+import UserAuthPage from './pages/UserAuthPage';
+import AdminLoginPage from './pages/AdminLoginPage';
 
 import './App.css';
 
@@ -14,7 +14,8 @@ function App() {
 			<Switch>
 				<Route exact path='/' component={HomePage} />
 				<Route path='/movie/:slug' component={MoviePage} />
-				<Route path='/registration' component={RegistrationPage} />
+				<Route path='/registration' component={UserAuthPage} />
+				<Route path='/admin' component={AdminLoginPage} />
 			</Switch>
 		</Router>
 	)
