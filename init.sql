@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS movies;
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS comments;
+DROP TABLE IF EXISTS movies CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS comments CASCADE;
 
 /* Movies */ 
 CREATE TABLE movies (
@@ -30,22 +30,15 @@ CREATE TABLE users (
 	ID SERIAL PRIMARY KEY,
 	uname VARCHAR(255) NOT NULL,
 	pword VARCHAR(255) NOT NULL,
-	email VARCHAR(255),
-	is_admin BOOLEAN DEFAULT FALSE,
-	created TIMESTAMP NOT NULL
+	email VARCHAR(255) NOT NULL,
+	is_admin BOOLEAN DEFAULT FALSE
 );
 
-INSERT INTO users (uname, pword, email, created)
-VALUES ('Jesse', 'jesse123', 'PenelloJ2@gmail.com', current_timestamp);
+INSERT INTO users (uname, pword, email)
+VALUES ('Jesse', 'jesse123', 'PenelloJ2@gmail.com');
 
-INSERT INTO users (uname, pword, created)
-VALUES ('Jason', 'jason123', current_timestamp);
-
-INSERT INTO users (uname, pword, created)
-VALUES ('Florencia', 'florencia123', current_timestamp);
-
-INSERT INTO users (uname, pword, is_admin, created)
-VALUES ('TechFlex', 'adminaccount', TRUE, current_timestamp);
+INSERT INTO users (uname, pword, email, is_admin)
+VALUES ('TechFlex', 'adminaccount', 'admin@TechFlex.com', TRUE);
 
 /* Comments */
 CREATE TABLE comments (
