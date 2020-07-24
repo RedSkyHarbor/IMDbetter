@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import axios from 'axios';
 
 import HomePage from './pages/HomePage';
 import MoviePage from './pages/MoviePage';
@@ -16,6 +17,26 @@ class App extends Component {
 			user: {}
 		}
 		this.handleLogin = this.handleLogin.bind(this);
+	}
+
+	componentDidMount() {
+		this.checkLoginStatus();
+	}
+
+	checkLoginStatus = () => {
+		axios.get('/api/logged_in/', { withCredentials: true })
+		.then(res => {
+			console.log('loginStatus res', res);
+			if (res.data !== 'no cookie' && this.state.loggedInStatus === 'NOT_LOGGED_IN') {
+				this.setState({
+					loggedInStatus: 'LOGGED_IN',
+					user: { username: res.data },
+				});
+			}
+		})
+		.catch(err => {
+			console.log('logged in cookie error', err);
+		});
 	}
 
 	handleLogin = (data) => {

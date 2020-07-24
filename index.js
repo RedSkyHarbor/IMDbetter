@@ -16,6 +16,11 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
 app.use(cookieParser());
 
+const cookieConfig = {
+	httpOnly: false,
+	sameSite: 'lax',
+}
+
 // Testing endpoint
 app.get('/hello', (req, res) => {
 	res.json({ info: 'Hello World!' });
@@ -67,7 +72,7 @@ const createAccount = (request, response) => {
 		if (error) {
 			throw error;
 		}
-		response.status(201).send(results);
+		response.cookie('userLoggedIn', username, cookieConfig).status(201).send(results);
 	});
 }
 
@@ -77,8 +82,18 @@ const login = (request, response) => {
 		if (error){
 			throw error;
 		}
-		response.status(200).send(results.rows.length.toString());
+		response.cookie('userLoggedIn', username, cookieConfig).status(200).send(results.rows.length.toString());
 	});
+}
+
+const checkIfLoggedIn = (request, response) => {
+	const cookie = request.cookies.userLoggedIn;
+	console.log('checkIfLoggedIn cookie value', cookie);
+	if (cookie) {
+		response.send(cookie);
+	} else {
+		response.send('no cookie');
+	}
 }
 
 // Any request that matches none of the above endpoints returns React application's index page
@@ -103,6 +118,9 @@ app.route('/api/registration')
 
 app.route('/api/sessions')
 	.post(login)
+
+app.route('/api/logged_in/')
+	.get(checkIfLoggedIn)
 
 // Starts server
 app.listen(port, () => {
