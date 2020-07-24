@@ -1,29 +1,90 @@
-import React from 'react';
+import React, { Component } from 'react';
+import axios from 'axios';
 
-const AdminLogin = () => {
-    return(
-        <form>
-            <h2>Welcome Administrator</h2>
+class AdminLogin extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: '',
+            password: '',
+            is_admin: true
+        }
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleSubmit = (event) => {
+        const { password, username, is_admin } = this.state;
+        axios
+            .post('/api/sessions', {
+                user: {
+                    username: username,
+                    password: password,
+                    is_admin: is_admin
+                }
+            },
+            { withCredentials: true }
+        )
+        .then(res => {
+            // TODO res.data === 1 may fail if two accounts exist with same credentials
+            // DB does not currently enforce usernames and emails to be unique
+            if (res.status === 200 && res.data === 1) {
+                this.props.handleLogin(JSON.parse(res.config.data));
+            } else {
+                // TODO show no user found
+            }
+            
+        })
+        .catch(err => {
+            console.log('login error', err);
+        });
+
+        event.preventDefault();
+    }
+
+    handleChange = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value
+        });
+    }
+
+    render() {
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <h1>{this.props.loggedInStatus}</h1>
                 <fieldset>
                     <legend>Log In</legend>
                     <ul>
                         <li>
-                            <label for="username">Username:</label>
-                            <input type="text" id="username" required/>
+                            <label htmlFor='username'>Username:</label>
+                            <input
+                                type='text'
+                                id='username' 
+                                name='username' 
+                                value={this.state.username}
+                                onChange={this.handleChange}
+                                required 
+                            />
                         </li>
                         <li>
-                            <label for="password">Password:</label>
-                            <input type="password" id="password" required/>
+                            <label htmlFor='password'>Password:</label>
+                            <input 
+                                type='password' 
+                                id='password' 
+                                name='password'
+                                value={this.state.password} 
+                                onChange={this.handleChange}
+                                required 
+                            />
                         </li>
                         <li>
-                            <i/>
-                            <button onClick={ () => this.changeView("PWReset")} href="#">Forgot Password?</button>
-                            <button onClick={ () => this.changeView("signUp")} href="#">Don't Have an Account?</button>
+                            <button type='submit'>Log In</button>
                         </li>
                     </ul>
-            </fieldset>
-        </form>
-    );
+                </fieldset>
+            </form>
+        );
+    }
 }
 
 export default AdminLogin;
