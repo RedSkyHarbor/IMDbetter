@@ -12,7 +12,8 @@ const pool = new Pool({
   // for prod v
   //ssl: { rejectUnauthorized: false}
   // for local v
-  ssl: isProduction
+  //ssl: isProduction
+  ssl: false
 });
 
 module.exports = { pool };
