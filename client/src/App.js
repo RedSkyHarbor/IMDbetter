@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import axios from 'axios';
 
+import Header from './components/header/Header';
 import HomePage from './pages/HomePage';
 import MoviePage from './pages/MoviePage';
 import UserAuthPage from './pages/UserAuthPage';
@@ -17,6 +18,7 @@ class App extends Component {
 			user: {}
 		}
 		this.handleLogin = this.handleLogin.bind(this);
+		this.handleLogout = this.handleLogout.bind(this);
 	}
 
 	componentDidMount() {
@@ -46,9 +48,17 @@ class App extends Component {
 		});
 	}
 
+	handleLogout = () => {
+		this.setState({
+			loggedInStatus: "NOT_LOGGED_IN",
+			user: {}
+		});
+	}
+
 	render() {
 		return (
 			<Router>
+				<Header handleLogout={this.handleLogout}/>
 				<Switch>
 					<Route 
 						exact 
@@ -66,7 +76,11 @@ class App extends Component {
 					<Route 
 						path='/registration' 
 						render={props => (
-							<UserAuthPage {...props} handleLogin={this.handleLogin} loggedInStatus={this.state.loggedInStatus} />
+							<UserAuthPage 
+								{...props} 
+								handleLogin={this.handleLogin}
+								loggedInStatus={this.state.loggedInStatus} 
+							/>
 						)}
 					/>
 					<Route 
