@@ -19,19 +19,26 @@ class UserSignUp extends Component {
 
     handleSubmit = (event) => {
         const { email, password, username } = this.state;
-        console.log(username, password, email);
-        axios.post('/api/registration', {
-            user: {
-                username: username,
-                email: email,
-                password: password
-            }
-        },
-        { withCredentials: true }
+        axios
+            .post('/api/registration', {
+                user: {
+                    username: username,
+                    email: email,
+                    password: password
+                }
+            },
+            { withCredentials: true }
         )
-        
+        .then(res => {
+            console.log(res);
+            if (res.status === 201) {
+                this.props.handleSuccessfulAuth(JSON.parse(res.config.data));
+            }
+        })
+        .catch(err => {
+            console.log('registration error', err);
+        });
 
-        console.log("form submitted");
         event.preventDefault();
     }
 
