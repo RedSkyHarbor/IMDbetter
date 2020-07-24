@@ -2,7 +2,7 @@ import React from 'react';
 
 import AdminLogin from '../components/auth/AdminLogin';
 
-const AdminLoginPage = (props) => {
+const AdminAuthPage = (props) => {
     return (
         <div>
             <h1>{props.loggedInStatus}</h1>
@@ -11,4 +11,4 @@ const AdminLoginPage = (props) => {
     )
 }
 
-export default AdminLoginPage;
+export default AdminAuthPage;
