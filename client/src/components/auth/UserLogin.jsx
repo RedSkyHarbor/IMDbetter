@@ -76,8 +76,8 @@ class UserLogin extends Component {
                         </li>
                         <li>
                             <button type='submit'>Log In</button>
-                            <button type='button' onClick={ () => this.handleSwitchView('reset')}>Reset Password</button>
-                            <button type='button' onClick={ () => this.handleSwitchView('signup')}>Register</button>
+                            {/* <button type='button' onClick={ () => this.handleSwitchView('reset')}>Reset Password</button> */ }
+                            <button type='button' onClick={ () => this.handleSwitchView('signup')}>Create Account</button>
                         </li>
                     </ul>
                 </fieldset>
