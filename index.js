@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const path = require('path');
 const { pool } = require('./config');
@@ -9,9 +10,11 @@ const app = express();
 
 // Serve static files from the React application
 app.use(express.static(path.join(__dirname, 'client/build')));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
+app.use(cookieParser());
 
 // Testing endpoint
 app.get('/hello', (req, res) => {
