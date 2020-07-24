@@ -4,18 +4,20 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const path = require('path');
 const { pool } = require('./config');
-const port = process.env.PORT || 5000;
 
+const port = process.env.PORT || 5000;
 const app = express();
 
 // Serve static files from the React application
 app.use(express.static(path.join(__dirname, 'client/build')));
 
+// Use middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
 app.use(cookieParser());
 
+// Configuration for all cookies
 const cookieConfig = {
 	httpOnly: false,
 	sameSite: 'lax',
@@ -66,6 +68,7 @@ const getComments = (requests, response) => {
 	});
 }
 
+// TODO enforce only allowing unique usernames and passwords
 const createAccount = (request, response) => {
 	const { username, password, email } = request.body.user;
 	pool.query('INSERT INTO users (uname, pword, email) VALUES ($1, $2, $3)', [username, password, email], (error, results) => {
@@ -76,14 +79,36 @@ const createAccount = (request, response) => {
 	});
 }
 
+
 const login = (request, response) => {
-	const { username, password} = request.body.user;
-	pool.query('SELECT * FROM users WHERE uname=$1 AND pword=$2', [username, password], (error, results) => {
-		if (error){
-			throw error;
-		}
-		response.cookie('userLoggedIn', username, cookieConfig).status(200).send(results.rows.length.toString());
-	});
+	const { username, password, is_admin } = request.body.user;
+
+	if (is_admin) {
+		console.log('handle admin login', is_admin, typeof(is_admin));
+		pool.query('SELECT * FROM users WHERE uname=$1 AND pword=$2 AND is_admin=$3', [username, password, is_admin], (error, results) => {
+			if (error) {
+				throw error;
+			}
+			if (results.rows.length > 0){
+				response.cookie('adminLoggedIn', username, cookieConfig).status(200).send(results.rows.length.toString());
+			} else {
+				// TODO respond user not found
+			}
+		})
+		
+	} else {
+		console.log('handle user login', is_admin, typeof(is_admin));
+		pool.query('SELECT * FROM users WHERE uname=$1 AND pword=$2 AND is_admin=$3', [username, password, is_admin], (error, results) => {
+			if (error){
+				throw error;
+			}
+			if (results.rows.length > 0){
+				response.cookie('userLoggedIn', username, cookieConfig).status(200).send(results.rows.length.toString());
+			} else {
+				// TODO respond user not found
+			}
+		});
+	}
 }
 
 const checkIfLoggedIn = (request, response) => {
