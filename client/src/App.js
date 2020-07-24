@@ -6,7 +6,7 @@ import Header from './components/header/Header';
 import HomePage from './pages/HomePage';
 import MoviePage from './pages/MoviePage';
 import UserAuthPage from './pages/UserAuthPage';
-import AdminLoginPage from './pages/AdminLoginPage';
+import AdminLogin from './components/auth/AdminLogin';
 
 import './App.css';
 
@@ -92,7 +92,7 @@ class App extends Component {
 					<Route 
 						path='/admin'
 						render={props => (
-							<AdminLoginPage 
+							<AdminLogin 
 								{...props}
 								handleLogin={this.handleLogin}
 								loggedInStatus={this.state.loggedInStatus}
