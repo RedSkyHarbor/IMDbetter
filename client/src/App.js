@@ -90,8 +90,15 @@ class App extends Component {
 						)}
 					/>
 					<Route 
-						path='/admin' 
-						component={AdminLoginPage} 
+						path='/admin'
+						render={props => (
+							<AdminLoginPage 
+								{...props}
+								handleLogin={this.handleLogin}
+								loggedInStatus={this.state.loggedInStatus}
+							/>
+						)}
+						
 					/>
 				</Switch>
 			</Router>
