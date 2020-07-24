@@ -68,6 +68,16 @@ const createAccount = (request, response) => {
 	});
 }
 
+const login = (request, response) => {
+	const { username, password} = request.body.user;
+	pool.query('SELECT * FROM users WHERE uname=$1 AND pword=$2', [username, password], (error, results) => {
+		if (error){
+			throw error;
+		}
+		response.status(200).send(results.rows.length.toString());
+	});
+}
+
 // Any request that matches none of the above endpoints returns React application's index page
 //app.get('*', (req, res) => {
 //	res.sendFile(path.join(__dirname + '/client/build/index.html'));
@@ -87,6 +97,9 @@ app.route('/api/fuzzysearch/:substring')
 
 app.route('/api/registration')
 	.post(createAccount)
+
+app.route('/api/sessions')
+	.post(login)
 
 // Starts server
 app.listen(port, () => {

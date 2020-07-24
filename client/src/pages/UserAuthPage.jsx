@@ -29,6 +29,7 @@ class UserAuthPage extends Component {
             case 'login':
                 return <UserLogin
                     onSelectView={this.handleUpdateView}
+                    handleSuccessfulAuth={this.handleSuccessfulAuth}
                 />
             case 'signup':
                 return <UserSignUp 
