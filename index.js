@@ -112,7 +112,7 @@ const login = (request, response) => {
 }
 
 const checkIfLoggedIn = (request, response) => {
-	const cookie = request.cookies.userLoggedIn;
+	const cookie = request.cookies.userLoggedIn || request.cookies.adminLoggedIn;
 	if (cookie) {
 		response.send(cookie);
 	} else {
