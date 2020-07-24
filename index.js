@@ -64,7 +64,7 @@ const createAccount = (request, response) => {
 		if (error) {
 			throw error;
 		}
-		response.status(201).send(`Account created with ${results}`);
+		response.status(201).send(results);
 	});
 }
 
