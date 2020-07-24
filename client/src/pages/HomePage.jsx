@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import Header from '../components/header/Header';
 import AllMovies from '../components/AllMovies';
 
 class HomePage extends Component {
@@ -13,7 +12,6 @@ class HomePage extends Component {
     render() {
         return(
             <div>
-                <Header />
                 <h1>Logged status: {this.props.loggedInStatus}</h1>
                 <AllMovies />
             </div>

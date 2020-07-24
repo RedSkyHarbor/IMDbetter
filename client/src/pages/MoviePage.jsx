@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import Header from '../components/header/Header';
 import Movie from '../components/Movie';
 import UserReviews from '../components/UserReviews';
 
@@ -14,7 +13,6 @@ class MoviePage extends Component {
         let { movieId } = this.props.location.state;
         return (
             <div>
-                <Header />
                 <h1>Logged status: {this.props.loggedInStatus}</h1>
                 <Movie movieId={movieId} />
                 <UserReviews movieId={movieId} />
