@@ -7,6 +7,7 @@ class UserLogin extends Component {
         this.state = {
             username: '',
             password: '',
+            is_admin: false
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -17,21 +18,25 @@ class UserLogin extends Component {
     }
 
     handleSubmit = (event) => {
-        const { password, username } = this.state;
+        const { password, username, is_admin } = this.state;
         axios
             .post('/api/sessions', {
                 user: {
                     username: username,
-                    password: password
+                    password: password,
+                    is_admin: is_admin
                 }
             },
             { withCredentials: true }
         )
         .then(res => {
+            // TODO res.data === 1 may fail if two accounts exist with same credentials
+            // DB does not currently enforce usernames and emails to be unique
             if (res.status === 200 && res.data === 1) {
                 this.props.handleSuccessfulAuth(JSON.parse(res.config.data));
+            } else {
+                // TODO show no user found
             }
-            // Else show some error message depending on if status was wrong or no account found
         })
         .catch(err => {
             console.log('login error', err);
