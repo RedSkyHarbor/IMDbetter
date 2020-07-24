@@ -64,13 +64,19 @@ class App extends Component {
 						exact 
 						path='/' 
 						render={props => (
-							<HomePage {...props} loggedInStatus={this.state.loggedInStatus} />
+							<HomePage 
+								{...props} 
+								loggedInStatus={this.state.loggedInStatus} 
+							/>
 						)}
 					/>
 					<Route
 						path='/movie/:slug' 
 						render={props => (
-							<MoviePage {...props} loggedInStatus={this.state.loggedInStatus} />
+							<MoviePage
+								{...props} 
+								loggedInStatus={this.state.loggedInStatus} 
+							/>
 						)}
 					/>
 					<Route 
