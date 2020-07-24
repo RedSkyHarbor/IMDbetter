@@ -88,12 +88,16 @@ const login = (request, response) => {
 
 const checkIfLoggedIn = (request, response) => {
 	const cookie = request.cookies.userLoggedIn;
-	console.log('checkIfLoggedIn cookie value', cookie);
 	if (cookie) {
 		response.send(cookie);
 	} else {
 		response.send('no cookie');
 	}
+}
+
+const logout = (request, response) => {
+	response.clearCookie('userLoggedIn');
+	return response.sendStatus(200);
 }
 
 // Any request that matches none of the above endpoints returns React application's index page
@@ -121,6 +125,9 @@ app.route('/api/sessions')
 
 app.route('/api/logged_in/')
 	.get(checkIfLoggedIn)
+
+app.route('/api/logout')
+	.delete(logout)
 
 // Starts server
 app.listen(port, () => {
