@@ -50,7 +50,7 @@ class UserLogin extends Component {
         return (
             <form onSubmit={this.handleSubmit}>
                 <fieldset>
-                    <legend>Sign Up</legend>
+                    <legend>Log In</legend>
                     <ul>
                         <li>
                             <label htmlFor='username'>Username:</label>
