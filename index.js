@@ -92,7 +92,7 @@ const login = (request, response) => {
 			if (results.rows.length > 0){
 				response.cookie('adminLoggedIn', username, cookieConfig).status(200).send(results.rows.length.toString());
 			} else {
-				// TODO respond user not found
+				response.status(401).send('Admin account not found');
 			}
 		})
 		
@@ -105,7 +105,7 @@ const login = (request, response) => {
 			if (results.rows.length > 0){
 				response.cookie('userLoggedIn', username, cookieConfig).status(200).send(results.rows.length.toString());
 			} else {
-				// TODO respond user not found
+				response.status(401).send('User account not found');
 			}
 		});
 	}
