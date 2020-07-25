@@ -40,14 +40,12 @@ VALUES ('Jesse', 'jesse123', 'PenelloJ2@gmail.com');
 INSERT INTO users (uname, pword, email, is_admin)
 VALUES ('TechFlex', 'adminaccount', 'admin@TechFlex.com', TRUE);
 
-/* Comments */
 CREATE TABLE comments (
 	ID SERIAL PRIMARY KEY,
-	movieID INTEGER REFERENCES movies(ID),
-	userID INTEGER REFERENCES users(ID),
+	movieID INTEGER REFERENCES movies(ID) NOT NULL,
+	userID INTEGER REFERENCES users(ID) NOT NULL,
 	comment VARCHAR(2055) NOT NULL,
-	rating DOUBLE PRECISION NOT NULL,
-	created TIMESTAMP NOT NULL
+	rating DOUBLE PRECISION NOT NULL
 );
 
 INSERT INTO comments (movieID, userID, comment, rating, created)
