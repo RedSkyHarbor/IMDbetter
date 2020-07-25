@@ -122,6 +122,7 @@ const checkIfLoggedIn = (request, response) => {
 
 const logout = (request, response) => {
 	response.clearCookie('userLoggedIn');
+	response.clearCookie('adminLoggedIn');
 	return response.sendStatus(200);
 }
 
