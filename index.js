@@ -80,7 +80,6 @@ const createAccount = (request, response) => {
 	});
 }
 
-
 const login = (request, response) => {
 	const { username, password, is_admin } = request.body.user;
 
@@ -112,14 +111,13 @@ const login = (request, response) => {
 	}
 }
 
-
 const checkIfLoggedIn = (request, response) => {
 	/* Return same cookie stored in browser otherwise return 'no cookie' */
 	console.log('checkIfLoggedIn');
 	if (request.cookies.userLoggedIn) {
 		response.send(request.cookies.userLoggedIn);
-	} else if (request.cookies.AdminLoggedIn){
-		response.send(request.cookies.AdmingLoggedIn);
+	} else if (request.cookies.adminLoggedIn){
+		response.send(request.cookies.adminLoggedIn);
 	} else {
 		response.send('no cookie');
 	}
@@ -131,33 +129,6 @@ const logout = (request, response) => {
 	response.clearCookie('adminLoggedIn');
 	return response.sendStatus(200);
 }
-
-// Any request that matches none of the above endpoints returns React application's index page
-
-// for prod
-
-/*
-app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname, '/client/build/index.html'))	
-	//if (err) {
-	//	res.status(500).send(err)
-	//}
-})
-*/
-
-// '/client/public/index.html'
-/*
-app.get('/api/*', function(req, res) {
-	console.log('Fucj my life');
-	res.sendFile(path.join(__dirname, '/client/build/index.html'), function(err) {
-		console.log('fuck it ')
-		if (err) {
-			console.log('err lololol')
-			res.status(500).send(err)
-		}
-	})
-})
-*/
 
 app.route('/api').get(getAllMovies)
 
