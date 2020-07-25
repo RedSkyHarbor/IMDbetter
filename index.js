@@ -112,11 +112,14 @@ const login = (request, response) => {
 	}
 }
 
+
 const checkIfLoggedIn = (request, response) => {
+	/* Return same cookie stored in browser otherwise return 'no cookie' */
 	console.log('checkIfLoggedIn');
-	const cookie = request.cookies.userLoggedIn || request.cookies.adminLoggedIn;
-	if (cookie) {
-		response.send(cookie);
+	if (request.cookies.userLoggedIn) {
+		response.send(request.cookies.userLoggedIn);
+	} else if (request.cookies.AdminLoggedIn){
+		response.send(request.cookies.AdmingLoggedIn);
 	} else {
 		response.send('no cookie');
 	}
@@ -133,20 +136,13 @@ const logout = (request, response) => {
 
 // for prod
 
-
+/*
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, '/client/build/index.html'))	
 	//if (err) {
 	//	res.status(500).send(err)
 	//}
 })
-
-
-// For local v
-/*
-app.get('*', (req, res) => {
-	res.sendfile(path.join(__dirname, '/public/index.html'));
-});
 */
 
 app.route('/api')
