@@ -146,6 +146,7 @@ app.get('*', (req, res) => {
 */
 
 // '/client/public/index.html'
+/*
 app.get('/api/*', function(req, res) {
 	console.log('Fucj my life');
 	res.sendFile(path.join(__dirname, '/client/build/index.html'), function(err) {
@@ -156,6 +157,7 @@ app.get('/api/*', function(req, res) {
 		}
 	})
 })
+*/
 
 app.route('/api').get(getAllMovies)
 
