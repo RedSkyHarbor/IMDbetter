@@ -145,37 +145,31 @@ app.get('*', (req, res) => {
 })
 */
 
-app.get('/*', function(req, res) {
-	res.sendFile(path.join(__dirname, '/client/public/index.html'), function(err) {
-	  if (err) {
-		res.status(500).send(err)
-	  }
+app.route('/api').get(getAllMovies)
+
+app.route('/api/movie/:id').get(getMovieById)
+
+app.route('/api/comments/:id').get(getComments)
+
+app.route('/api/fuzzysearch/:substring').get(getMovieByPartialTitle)
+
+app.route('/api/registration').post(createAccount)
+
+app.route('/api/sessions').post(login)
+
+app.route('/api/logged_in/').get(checkIfLoggedIn)
+
+app.route('/api/logout').delete(logout)
+
+// '/client/public/index.html'
+app.get('/api/*', function(req, res) {
+	console.log('Fucj my life');
+	res.sendFile(path.join(__dirname, 'client/build/index.html'), function(err) {
+		if (err) {
+			res.status(500).send(err)
+		}
 	})
-  })
-
-app.route('/api')
-	.get(getAllMovies)
-
-app.route('/api/movie/:id')
-	.get(getMovieById)
-
-app.route('/api/comments/:id')
-	.get(getComments)
-
-app.route('/api/fuzzysearch/:substring')
-	.get(getMovieByPartialTitle)
-
-app.route('/api/registration')
-	.post(createAccount)
-
-app.route('/api/sessions')
-	.post(login)
-
-app.route('/api/logged_in/')
-	.get(checkIfLoggedIn)
-
-app.route('/api/logout')
-	.delete(logout)
+})
 
 // Starts server
 app.listen(port, () => {
