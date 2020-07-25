@@ -34,6 +34,16 @@ const getAllMovies = (request, response) => {
 		if (error) {
 			throw error;
 		}
+		//TODO maybe dont need this but was tryiung to get avg rating
+		/*
+		console.log('All movies',results.rows);
+		pool.query('SELECT * FROM movie_ratings', (error, results) => {
+			if (error) {
+				throw error;
+			}
+			console.log('All reviews', results.rows);
+		})
+		*/
 		response.status(200).json(results.rows);
 	});
 }
