@@ -8,6 +8,7 @@ class UserSignUp extends Component {
             username: '',
             email: '',
             password: '',
+            is_admin: false
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -18,13 +19,14 @@ class UserSignUp extends Component {
     }
 
     handleSubmit = (event) => {
-        const { email, password, username } = this.state;
+        const { email, password, username, is_admin } = this.state;
         axios
             .post('/api/registration', {
                 user: {
                     username: username,
                     email: email,
-                    password: password
+                    password: password,
+                    is_admin: is_admin
                 }
             },
             { withCredentials: true }
