@@ -149,7 +149,9 @@ app.get('*', (req, res) => {
 app.get('/api/*', function(req, res) {
 	console.log('Fucj my life');
 	res.sendFile(path.join(__dirname, 'client/build/index.html'), function(err) {
+		console.log('fuck it ')
 		if (err) {
+			console.log('err lololol')
 			res.status(500).send(err)
 		}
 	})
