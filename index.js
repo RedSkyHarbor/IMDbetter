@@ -125,9 +125,9 @@ const logout = (request, response) => {
 }
 
 // Any request that matches none of the above endpoints returns React application's index page
-//app.get('*', (req, res) => {
-//	res.sendFile(path.join(__dirname + '/client/build/index.html'));
-//});
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname + '/client/build/index.html'));
+});
 
 app.route('/api')
 	.get(getAllMovies)
