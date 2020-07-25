@@ -52,9 +52,9 @@ class AdminLogin extends Component {
         return (
             <form onSubmit={this.handleSubmit}>
                 <h1>{this.props.loggedInStatus}</h1>
-                <h2 style={{ display: this.state.display_error_message ? 'block' : 'none' }}>Account not found</h2>
                 <fieldset>
                     <legend>Log In</legend>
+                    <h2 style={{ display: this.state.display_error_message ? 'block' : 'none' }}>Account not found</h2>
                     <ul>
                         <li>
                             <label htmlFor='username'>Username:</label>
