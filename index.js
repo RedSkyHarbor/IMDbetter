@@ -70,40 +70,44 @@ const getComments = (requests, response) => {
 
 // TODO enforce only allowing unique usernames and passwords
 const createAccount = (request, response) => {
-	console.log('createAccount');
-	const { username, password, email } = request.body.user;
+	const { username, password, email, is_admin } = request.body.user;
 	pool.query('INSERT INTO users (uname, pword, email) VALUES ($1, $2, $3)', [username, password, email], (error, results) => {
 		if (error) {
 			throw error;
 		}
-		response.cookie('userLoggedIn', username, cookieConfig).status(201).send(results);
+	});
+	// query again to get userID to add to cookie
+	pool.query('SELECT * FROM users WHERE uname=$1 AND pword=$2 AND is_admin=$3', [username, password, is_admin], (error, results) => {
+		if (error) {
+			throw error;
+		}
+		let cookieData = username + '-' + results.rows[0].id;
+		response.cookie('userLoggedIn', cookieData, cookieConfig).status(201).send(results);
 	});
 }
 
 const login = (request, response) => {
 	const { username, password, is_admin } = request.body.user;
-
 	if (is_admin) {
-		console.log('admin login');
 		pool.query('SELECT * FROM users WHERE uname=$1 AND pword=$2 AND is_admin=$3', [username, password, is_admin], (error, results) => {
 			if (error) {
 				throw error;
 			}
 			if (results.rows.length > 0){
-				response.cookie('adminLoggedIn', username, cookieConfig).status(200).send(results.rows.length.toString());
+				let cookieData = username + '-' + results.rows[0].id;
+				response.cookie('adminLoggedIn', cookieData, cookieConfig).status(200).send(results.rows.length.toString());
 			} else {
 				response.status(401).send('Admin account not found');
 			}
 		})
-		
 	} else {
-		console.log('user login');
 		pool.query('SELECT * FROM users WHERE uname=$1 AND pword=$2 AND is_admin=$3', [username, password, is_admin], (error, results) => {
 			if (error){
 				throw error;
 			}
 			if (results.rows.length > 0){
-				response.cookie('userLoggedIn', username, cookieConfig).status(200).send(results.rows.length.toString());
+				let cookieData = username + '-' + results.rows[0].id;
+				response.cookie('userLoggedIn', cookieData, cookieConfig).status(200).send(results.rows.length.toString());
 			} else {
 				response.status(401).send('User account not found');
 			}
@@ -113,7 +117,6 @@ const login = (request, response) => {
 
 const checkIfLoggedIn = (request, response) => {
 	/* Return same cookie stored in browser otherwise return 'no cookie' */
-	console.log('checkIfLoggedIn');
 	if (request.cookies.userLoggedIn) {
 		response.send(request.cookies.userLoggedIn);
 	} else if (request.cookies.adminLoggedIn){
@@ -124,7 +127,6 @@ const checkIfLoggedIn = (request, response) => {
 }
 
 const logout = (request, response) => {
-	console.log('logout');
 	response.clearCookie('userLoggedIn');
 	response.clearCookie('adminLoggedIn');
 	return response.sendStatus(200);
