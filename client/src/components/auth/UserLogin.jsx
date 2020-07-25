@@ -7,7 +7,8 @@ class UserLogin extends Component {
         this.state = {
             username: '',
             password: '',
-            is_admin: false
+            is_admin: false,
+            display_error_message: false
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -34,12 +35,11 @@ class UserLogin extends Component {
             // DB does not currently enforce usernames and emails to be unique
             if (res.status === 200 && res.data === 1) {
                 this.props.handleSuccessfulAuth(JSON.parse(res.config.data));
-            } else {
-                // TODO show no user found
             }
         })
         .catch(err => {
             console.log('login error', err);
+            this.setState({ display_error_message: true });
         });
 
         event.preventDefault();
@@ -56,6 +56,7 @@ class UserLogin extends Component {
             <form onSubmit={this.handleSubmit}>
                 <fieldset>
                     <legend>Log In</legend>
+                    <h2 style={{ display: this.state.display_error_message ? 'block' : 'none' }}>Account not found</h2>
                     <ul>
                         <li>
                             <label htmlFor='username'>Username:</label>
