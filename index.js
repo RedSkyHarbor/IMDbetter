@@ -69,6 +69,7 @@ const getComments = (requests, response) => {
 }
 
 // TODO enforce only allowing unique usernames and passwords
+// TODO Likely wont work always
 const createAccount = (request, response) => {
 	const { username, password, email, is_admin } = request.body.user;
 	pool.query('INSERT INTO users (uname, pword, email) VALUES ($1, $2, $3)', [username, password, email], (error, results) => {
@@ -77,11 +78,14 @@ const createAccount = (request, response) => {
 		}
 	});
 	// query again to get userID to add to cookie
-	pool.query('SELECT * FROM users WHERE uname=$1 AND pword=$2 AND is_admin=$3', [username, password, is_admin], (error, results) => {
+	// this is a stupid way to do it, better solution is currval()
+	pool.query('SELECT max(ID) from users', (error, results) => {
 		if (error) {
 			throw error;
 		}
-		let cookieData = username + '-' + results.rows[0].id;
+		//console.log(results.rows);
+		let userId = parseInt(results.rows[0].max) + 1
+		let cookieData = username + '-' + userId; // so stupid
 		response.cookie('userLoggedIn', cookieData, cookieConfig).status(201).send(results);
 	});
 }
@@ -126,6 +130,36 @@ const checkIfLoggedIn = (request, response) => {
 	}
 }
 
+const submitReview = (request, response) => {
+	const { review, rating, movieId } = request.body.comment;
+	const cookie = request.cookies.userLoggedIn || request.cookies.adminLoggedIn;
+	const username = cookie.split('-')[0];
+	const userId= cookie.split('-')[1];
+	
+	// TODO if results.rows show that user has already left a comment, return unauth
+	pool.query('SELECT COUNT(*) FROM comments WHERE movieId=$1 and userId=$2', [movieId, userId], (error, results) => {
+		if (error) {
+			throw error;
+		}
+		/*
+		console.log('COUNT results',results.rows[0].count);
+		if (parseInt(results.rows[0].count) >= 1){
+			console.log('dont allow more comments');
+			response.sendStatus(401);
+			return;
+		}
+		*/
+	})
+
+	pool.query('INSERT INTO comments (movieId, userId, comment, rating) VALUES ($1, $2, $3, $4)', [movieId, userId, review, rating], (error, results) => {
+		if (error) {
+			throw error;
+		}
+		response.status('200').send('comment inserted');
+	})
+	
+}
+
 const logout = (request, response) => {
 	response.clearCookie('userLoggedIn');
 	response.clearCookie('adminLoggedIn');
@@ -148,7 +182,7 @@ app.route('/api/logged_in/').get(checkIfLoggedIn)
 
 app.route('/api/logout').delete(logout)
 
-
+app.route('/api/review').post(submitReview)
 
 // Starts server
 app.listen(port, () => {
