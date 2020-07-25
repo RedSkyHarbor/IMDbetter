@@ -84,7 +84,6 @@ const login = (request, response) => {
 	const { username, password, is_admin } = request.body.user;
 
 	if (is_admin) {
-		console.log('handle admin login', is_admin, typeof(is_admin));
 		pool.query('SELECT * FROM users WHERE uname=$1 AND pword=$2 AND is_admin=$3', [username, password, is_admin], (error, results) => {
 			if (error) {
 				throw error;
@@ -97,7 +96,6 @@ const login = (request, response) => {
 		})
 		
 	} else {
-		console.log('handle user login', is_admin, typeof(is_admin));
 		pool.query('SELECT * FROM users WHERE uname=$1 AND pword=$2 AND is_admin=$3', [username, password, is_admin], (error, results) => {
 			if (error){
 				throw error;
