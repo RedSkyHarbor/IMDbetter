@@ -160,6 +160,14 @@ const submitReview = (request, response) => {
 	
 }
 
+// TODO
+const insert_movie = (request, response) => {
+	const { title, summary, movie_url } = request.body.movie;
+	let slug = title.replace(/\s+/g, '-').toLowerCase();
+	console.log('insert movie', title, slug, summary, movie_url);
+	//pool.query('INSERT INTO movies (')
+}
+
 const logout = (request, response) => {
 	response.clearCookie('userLoggedIn');
 	response.clearCookie('adminLoggedIn');
@@ -183,6 +191,8 @@ app.route('/api/logged_in/').get(checkIfLoggedIn)
 app.route('/api/logout').delete(logout)
 
 app.route('/api/review').post(submitReview)
+
+app.route('/api/insert_movie').post(insert_movie)
 
 // Starts server
 app.listen(port, () => {
