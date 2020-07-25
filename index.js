@@ -145,6 +145,16 @@ app.get('*', (req, res) => {
 })
 */
 
+// '/client/public/index.html'
+app.get('/api/*', function(req, res) {
+	console.log('Fucj my life');
+	res.sendFile(path.join(__dirname, 'client/build/index.html'), function(err) {
+		if (err) {
+			res.status(500).send(err)
+		}
+	})
+})
+
 app.route('/api').get(getAllMovies)
 
 app.route('/api/movie/:id').get(getMovieById)
@@ -161,15 +171,7 @@ app.route('/api/logged_in/').get(checkIfLoggedIn)
 
 app.route('/api/logout').delete(logout)
 
-// '/client/public/index.html'
-app.get('/api/*', function(req, res) {
-	console.log('Fucj my life');
-	res.sendFile(path.join(__dirname, 'client/build/index.html'), function(err) {
-		if (err) {
-			res.status(500).send(err)
-		}
-	})
-})
+
 
 // Starts server
 app.listen(port, () => {
