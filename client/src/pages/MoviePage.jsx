@@ -9,6 +9,12 @@ class MoviePage extends Component {
         this.state = {};
     }
     
+    // When page refreshes the props and state are lost
+    // So on initial load of the page the movieId is sent to this component via props
+    // but when page reloads the props are empty
+    //solution: ????????? persist in local storage??? use express? 
+    // Do a similar thing as maintaining logged in state?
+
     render() {
         let { movieId } = this.props.location.state;
         return (
