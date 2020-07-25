@@ -70,6 +70,7 @@ const getComments = (requests, response) => {
 
 // TODO enforce only allowing unique usernames and passwords
 const createAccount = (request, response) => {
+	console.log('createAccount');
 	const { username, password, email } = request.body.user;
 	pool.query('INSERT INTO users (uname, pword, email) VALUES ($1, $2, $3)', [username, password, email], (error, results) => {
 		if (error) {
@@ -84,6 +85,7 @@ const login = (request, response) => {
 	const { username, password, is_admin } = request.body.user;
 
 	if (is_admin) {
+		console.log('admin login');
 		pool.query('SELECT * FROM users WHERE uname=$1 AND pword=$2 AND is_admin=$3', [username, password, is_admin], (error, results) => {
 			if (error) {
 				throw error;
@@ -96,6 +98,7 @@ const login = (request, response) => {
 		})
 		
 	} else {
+		console.log('user login');
 		pool.query('SELECT * FROM users WHERE uname=$1 AND pword=$2 AND is_admin=$3', [username, password, is_admin], (error, results) => {
 			if (error){
 				throw error;
@@ -110,6 +113,7 @@ const login = (request, response) => {
 }
 
 const checkIfLoggedIn = (request, response) => {
+	console.log('checkIfLoggedIn');
 	const cookie = request.cookies.userLoggedIn || request.cookies.adminLoggedIn;
 	if (cookie) {
 		response.send(cookie);
@@ -119,16 +123,27 @@ const checkIfLoggedIn = (request, response) => {
 }
 
 const logout = (request, response) => {
+	console.log('logout');
 	response.clearCookie('userLoggedIn');
 	response.clearCookie('adminLoggedIn');
 	return response.sendStatus(200);
 }
 
 // Any request that matches none of the above endpoints returns React application's index page
+
+// for prod
+/*
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
+*/
 
+// For local v
+/*
+app.get('*', (req, res) => {
+	res.sendfile(path.join(__dirname + '/public/index.html'));
+});
+*/
 
 app.route('/api')
 	.get(getAllMovies)
