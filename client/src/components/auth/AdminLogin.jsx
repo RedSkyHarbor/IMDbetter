@@ -7,7 +7,8 @@ class AdminLogin extends Component {
         this.state = {
             username: '',
             password: '',
-            is_admin: true
+            is_admin: true,
+            display_error_message: false
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -30,13 +31,12 @@ class AdminLogin extends Component {
             // DB does not currently enforce usernames and emails to be unique
             if (res.status === 200 && res.data === 1) {
                 this.props.handleLogin(JSON.parse(res.config.data));
-            } else {
-                // TODO show no user found
+                this.props.history.push('/');
             }
-            
         })
         .catch(err => {
             console.log('login error', err);
+            this.setState({ display_error_message: true })
         });
 
         event.preventDefault();
@@ -52,6 +52,7 @@ class AdminLogin extends Component {
         return (
             <form onSubmit={this.handleSubmit}>
                 <h1>{this.props.loggedInStatus}</h1>
+                <h2 style={{ display: this.state.display_error_message ? 'block' : 'none' }}>Account not found</h2>
                 <fieldset>
                     <legend>Log In</legend>
                     <ul>
