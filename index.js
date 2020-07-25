@@ -134,7 +134,7 @@ const logout = (request, response) => {
 // for prod
 
 app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname + '/client/build/index.html'))
+	res.sendFile(path.join(__dirname, '/client/build/index.html'))
 	if (err) {
 		res.status(500).send(err)
 	}
