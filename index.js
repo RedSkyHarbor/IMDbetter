@@ -132,11 +132,13 @@ const logout = (request, response) => {
 // Any request that matches none of the above endpoints returns React application's index page
 
 // for prod
-/*
+
 app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname + '/client/build/index.html'));
-});
-*/
+	res.sendFile(path.join(__dirname + '/client/build/index.html'))
+	if (err) {
+		res.status(500).send(err)
+	}
+})
 
 // For local v
 /*
