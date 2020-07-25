@@ -16,7 +16,10 @@ class MoviePage extends Component {
             <div>
                 <h1>Logged status: {this.props.loggedInStatus}</h1>
                 <Movie movieId={movieId} />
-                <UserReviews movieId={movieId} />
+                <UserReviews
+                    movieId={movieId}
+                    loggedInStatus={this.props.loggedInStatus}
+                />
             </div>
         );
     }
