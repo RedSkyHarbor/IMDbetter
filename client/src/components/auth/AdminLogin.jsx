@@ -31,7 +31,7 @@ class AdminLogin extends Component {
             // DB does not currently enforce usernames and emails to be unique
             if (res.status === 200 && res.data === 1) {
                 this.props.handleLogin(JSON.parse(res.config.data));
-                this.props.history.push('/');
+                this.props.history.push('/admin/dashboard');
             }
         })
         .catch(err => {

@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage';
 import MoviePage from './pages/MoviePage';
 import UserAuthPage from './pages/UserAuthPage';
 import AdminLogin from './components/auth/AdminLogin';
+import AdminDashboardPage from './pages/AdminDashboardPage';
 
 import './App.css';
 
@@ -90,6 +91,15 @@ class App extends Component {
 						)}
 					/>
 					<Route 
+						path='/admin/dashboard'
+						render={props => (
+							<AdminDashboardPage 
+								{...props}
+								loggedInStatus={this.state.loggedInStatus}
+							/>
+						)}
+					/>
+					<Route 
 						path='/admin'
 						render={props => (
 							<AdminLogin 
@@ -100,6 +110,7 @@ class App extends Component {
 						)}
 						
 					/>
+
 				</Switch>
 			</Router>
 		)
