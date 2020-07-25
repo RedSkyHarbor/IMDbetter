@@ -133,17 +133,19 @@ const logout = (request, response) => {
 
 // for prod
 
+
 app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname, '/client/build/index.html'))
-	if (err) {
-		res.status(500).send(err)
-	}
+	res.sendFile(path.join(__dirname, '/client/build/index.html'))	
+	//if (err) {
+	//	res.status(500).send(err)
+	//}
 })
+
 
 // For local v
 /*
 app.get('*', (req, res) => {
-	res.sendfile(path.join(__dirname + '/public/index.html'));
+	res.sendfile(path.join(__dirname, '/public/index.html'));
 });
 */
 

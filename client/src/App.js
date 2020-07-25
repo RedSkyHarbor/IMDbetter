@@ -26,8 +26,11 @@ class App extends Component {
 	}
 
 	checkLoginStatus = () => {
+		console.log('checkLoginStatus');
+		
 		axios.get('/api/logged_in/', { withCredentials: true })
 		.then(res => {
+			console.log('lololol');
 			if (res.data !== 'no cookie' && this.state.loggedInStatus === 'NOT_LOGGED_IN') {
 				this.setState({
 					loggedInStatus: 'LOGGED_IN',
@@ -38,6 +41,7 @@ class App extends Component {
 		.catch(err => {
 			console.log('logged in cookie error', err);
 		});
+		
 	}
 
 	handleLogin = (data) => {
