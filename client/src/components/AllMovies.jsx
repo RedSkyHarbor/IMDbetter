@@ -6,6 +6,7 @@ class AllMovies extends Component {
         super(props);
         this.state = { movies: [] };
         this.handleChange = this.handleChange.bind(this);
+        this.addMovieIdToLocalStorage = this.addMovieIdToLocalStorage.bind(this);
     }
 
     componentDidMount() {
@@ -28,6 +29,11 @@ class AllMovies extends Component {
         }
     }
 
+    addMovieIdToLocalStorage = (id) => {
+        console.log('adding movie id to local storage', id);
+        localStorage.setItem('movieId', id);
+    }
+
     render() {
         const { movies } = this.state;
         return (
@@ -36,10 +42,12 @@ class AllMovies extends Component {
                 <ul>
                     { movies.map(movie =>
                         <li key={movie.id}>
-                            <h1><Link to={{
-                                pathname: `/movie/${movie.slug}`,
-                                state: { movieId: movie.id }
-                            }}>{movie.title}</Link></h1>
+                            <h1>
+                                <Link
+                                    onClick={() => this.addMovieIdToLocalStorage(movie.id)}
+                                    to={{pathname: `/movie/${movie.slug}`}}>{movie.title}
+                                </Link>
+                            </h1>
                             <img alt='movie poster' style={{ width: 200, height: 300 }} src={movie.picture_url} />
                             <p>{movie.summary}</p>
                             <p>{movie.rating}</p>
