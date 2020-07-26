@@ -46,7 +46,7 @@ class UserAuthPage extends Component {
 
     render() {
         return (
-            <div>
+            <div className='container'>
                 <h1>Logged status: {this.props.loggedInStatus}</h1>
                 {this.currentView()}
             </div>

@@ -57,7 +57,7 @@ class AdminDashboardPage extends Component {
     render () {
         let { response } = this.state;
         return (
-            <div>
+            <div className='container'>
                 <h2>{response}</h2>
                 <form id='insert-movie-form' onSubmit={this.handleSubmit}>
                     <li>
