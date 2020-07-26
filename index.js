@@ -215,6 +215,19 @@ const logout = (request, response) => {
 	return response.sendStatus(200);
 }
 
+const getReview = (request, response) => {
+	const { movieId } = request.body.comment;
+	const cookie = request.cookies.userLoggedIn || request.cookies.adminLoggedIn;
+	const userId  = cookie.split('-')[1];
+
+	pool.query('SELECT comment, rating FROM comments WHERE userId=$1 AND movieId=2', [userId, movieId], (error, results) => {
+		if (error) {
+			throw error;
+		}
+		console.log(results.rows);
+	})
+}
+
 app.route('/api').get(getAllMovies)
 app.route('/api/movie/:id').get(getMovieById)
 app.route('/api/comments/:id').get(getComments)
@@ -223,9 +236,11 @@ app.route('/api/registration').post(createAccount)
 app.route('/api/sessions').post(login)
 app.route('/api/logged_in/').get(checkIfLoggedIn)
 app.route('/api/logout').delete(logout)
-app.route('/api/review/create').post(submitReview)
 app.route('/api/insert_movie').post(insert_movie)
+
 app.route('/api/review/check').post(checkIfFirstReview)
+app.route('/api/review/create').post(submitReview)
+app.route('/api/review/get_review').post(getReview)
 
 // Starts server
 app.listen(port, () => {
