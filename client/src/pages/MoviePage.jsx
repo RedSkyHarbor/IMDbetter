@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+//import axios from 'axios';
 
 import Movie from '../components/Movie';
 import UserReviews from '../components/UserReviews';
@@ -63,7 +63,7 @@ class MoviePage extends Component {
 
     }
     */
-   
+
     render() {
         let movieId = localStorage.getItem('movieId');
         return (
