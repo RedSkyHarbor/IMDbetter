@@ -21,7 +21,6 @@ class UserReviews extends Component {
 
     handleSubmit = (event) => {
         const { review, rating } = this.state;
-        console.log(review, rating);
         axios
             .post('/api/review', {
                 comment: {
@@ -33,12 +32,15 @@ class UserReviews extends Component {
             { withCredentials: true }
         )
         .then(res => {
-            console.log(res);
+            fetch('/api/comments/' + this.props.movieId)
+            .then(res => res.json())
+                .then(comments => this.setState({ comments }));
         })
         .catch(err => {
             console.log('submit review err', err);
         })
         event.preventDefault();
+
     }
 
     handleChange = (event) => {
@@ -53,7 +55,6 @@ class UserReviews extends Component {
     render() {
         const { comments } = this.state;
         const loggedIn = this.props.loggedInStatus === "LOGGED_IN" ? true : false;
-        console.log('logged in', loggedIn)
         return (
             <div>
                 <h3>User Reviews</h3>
