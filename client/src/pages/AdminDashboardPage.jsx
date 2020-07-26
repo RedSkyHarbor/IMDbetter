@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import './pages.scss'
 
 //TODO only accessible with admin cookie MUST BE LOCKED BEHIND THAT LOGIN
 //send data to backend with axios
@@ -57,29 +58,31 @@ class AdminDashboardPage extends Component {
     render () {
         let { response } = this.state;
         return (
-            <div className='container'>
-                <h2>{response}</h2>
-                <form id='insert-movie-form' onSubmit={this.handleSubmit}>
-                    <li>
-                        <label htmlFor='title'>Title</label>
-                        <input type='text' name='title' onChange={this.handleChange} required></input>
-                    </li>
-                    <li>
-                        <label htmlFor='summary'>Summary</label>
-                        <textarea type='text' name='summary' onChange={this.handleChange} required></textarea>
-                    </li>
-                    <li>
-                        <label htmlFor='release_year'>Year Released</label>
-                        <input type='text' name='release_year' onChange={this.handleChange} required></input>
-                    </li>
-                    <li>
-                        <label htmlFor='image_url'>Image</label>
-                        <input type='text' name='image_url' onChange={this.handleChange} required></input>
-                    </li>
-                    <li>
-                        <button type='submit'>Add movie</button>
-                    </li>
-                </form>
+            <div className='content'>
+                <div className='container'>
+                    <span>{response}</span>
+                    <form id='insert-movie-form' onSubmit={this.handleSubmit}>
+                        <li>
+                            <label htmlFor='title'>Title</label>
+                            <input type='text' name='title' onChange={this.handleChange} required></input>
+                        </li>
+                        <li>
+                            <label htmlFor='summary'>Summary</label>
+                            <textarea type='text' name='summary' onChange={this.handleChange} required></textarea>
+                        </li>
+                        <li>
+                            <label htmlFor='release_year'>Year Released</label>
+                            <input type='text' name='release_year' onChange={this.handleChange} required></input>
+                        </li>
+                        <li>
+                            <label htmlFor='image_url'>Image</label>
+                            <input type='text' name='image_url' onChange={this.handleChange} required></input>
+                        </li>
+                        <li>
+                            <button type='submit'>Add movie</button>
+                        </li>
+                    </form>
+                </div>
             </div>
         )
     }

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 
 import Movie from '../components/Movie';
 import UserReviews from '../components/UserReviews';
+import './pages.scss'
 
 // TODO check if reviewed already here
 class MoviePage extends Component {
@@ -67,12 +68,14 @@ class MoviePage extends Component {
     render() {
         let movieId = localStorage.getItem('movieId');
         return (
-            <div className='container'>
-                <Movie movieId={movieId} />
-                <UserReviews
-                    movieId={movieId}
-                    loggedInStatus={this.props.loggedInStatus}
-                />
+            <div className='content'>
+                <div className='container'>
+                    <Movie movieId={movieId} />
+                    <UserReviews
+                        movieId={movieId}
+                        loggedInStatus={this.props.loggedInStatus}
+                    />
+                </div>
             </div>
         );
     }

@@ -1,8 +1,10 @@
+$primary-black: #000000;
+$secondary-black: #181818;
+
 .header {
-  background-color: black;
+  background-color: $secondary-black;
   padding-top: 2vh;
   padding-bottom: 2vh;
-  margin-bottom: 1vh;
   display: flex;
   justify-content: space-between;
   overflow: auto;

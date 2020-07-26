@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import './pages.scss';
 
 class AdminLogin extends Component {
     constructor(props) {
@@ -50,41 +51,42 @@ class AdminLogin extends Component {
 
     render() {
         return (
-            <div className='container'>
-                <form onSubmit={this.handleSubmit}>
-                    <h1>{this.props.loggedInStatus}</h1>
-                    <fieldset>
-                        <legend>Log In</legend>
-                        <h2 style={{ display: this.state.display_error_message ? 'block' : 'none' }}>Account not found</h2>
-                        <ul>
-                            <li>
-                                <label htmlFor='username'>Username:</label>
-                                <input
-                                    type='text'
-                                    id='username' 
-                                    name='username' 
-                                    value={this.state.username}
-                                    onChange={this.handleChange}
-                                    required 
-                                />
-                            </li>
-                            <li>
-                                <label htmlFor='password'>Password:</label>
-                                <input 
-                                    type='password' 
-                                    id='password' 
-                                    name='password'
-                                    value={this.state.password} 
-                                    onChange={this.handleChange}
-                                    required 
-                                />
-                            </li>
-                            <li>
-                                <button type='submit'>Log In</button>
-                            </li>
-                        </ul>
-                    </fieldset>
-                </form>
+            <div className='content'>
+                <div className='container'>
+                    <form onSubmit={this.handleSubmit}>
+                        <fieldset>
+                            <legend>Log In</legend>
+                            <h2 style={{ display: this.state.display_error_message ? 'block' : 'none' }}>Account not found</h2>
+                            <ul>
+                                <li>
+                                    <label htmlFor='username'>Username:</label>
+                                    <input
+                                        type='text'
+                                        id='username' 
+                                        name='username' 
+                                        value={this.state.username}
+                                        onChange={this.handleChange}
+                                        required 
+                                    />
+                                </li>
+                                <li>
+                                    <label htmlFor='password'>Password:</label>
+                                    <input 
+                                        type='password' 
+                                        id='password' 
+                                        name='password'
+                                        value={this.state.password} 
+                                        onChange={this.handleChange}
+                                        required 
+                                    />
+                                </li>
+                                <li>
+                                    <button type='submit'>Log In</button>
+                                </li>
+                            </ul>
+                        </fieldset>
+                    </form>
+                </div>
             </div>
         );
     }
