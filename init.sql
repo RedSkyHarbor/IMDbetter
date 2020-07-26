@@ -37,5 +37,3 @@ CREATE TABLE movie_ratings (
 
 /* Users */ 
 INSERT INTO users (uname, pword, email, is_admin) VALUES ('admin', 'admin', 'admin@gmail.com', TRUE);
-
-/* Movies */ 
