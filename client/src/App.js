@@ -60,7 +60,7 @@ class App extends Component {
 	render() {
 		return (
 			<Router>
-				<Header handleLogout={this.handleLogout}/>
+				<Header handleLogout={this.handleLogout} loggedInStatus={this.state.loggedInStatus}/>
 				<Switch>
 					<Route 
 						exact 
