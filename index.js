@@ -165,6 +165,7 @@ const submitReview = (request, response) => {
 		if (error) {
 			throw error;
 		}
+		// TODO should this be a string?
 		response.status('200').send('comment inserted');
 	})
 	
@@ -172,10 +173,14 @@ const submitReview = (request, response) => {
 
 // TODO
 const insert_movie = (request, response) => {
-	const { title, summary, movie_url } = request.body.movie;
+	const { title, summary, release_year, image_url } = request.body.movie;
 	let slug = title.replace(/\s+/g, '-').toLowerCase();
-	console.log('insert movie', title, slug, summary, movie_url);
-	//pool.query('INSERT INTO movies (')
+	pool.query('INSERT INTO movies (title, slug, summary, release_year, picture_url) VALUES ($1, $2, $3, $4, $5)', [title, slug, summary, release_year, image_url], (error, results) => {
+		if (error) {
+			throw error;
+		}
+		response.status(204).send('movie inserted');
+	});
 }
 
 const logout = (request, response) => {

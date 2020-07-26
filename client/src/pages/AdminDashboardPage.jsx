@@ -9,6 +9,7 @@ class AdminDashboardPage extends Component {
         this.state = {
             title: '',
             summary: '',
+            release_year: 0,
             image_url: '',
             response: ''
         }
@@ -16,15 +17,14 @@ class AdminDashboardPage extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    // TODO post request here
     handleSubmit = (event) => {
-        const { title, summary, image_url } = this.state;
-        console.log('handle submit', title, summary, image_url);
+        const { title, summary, release_year, image_url } = this.state;
         axios  
             .post('/api/insert_movie', {
                 movie: {
                     title: title,
                     summary: summary,
+                    release_year: release_year,
                     image_url: image_url
                 }
             },
@@ -61,6 +61,10 @@ class AdminDashboardPage extends Component {
                     <li>
                         <label htmlFor='summary'>Summary</label>
                         <input type='text' name='summary' onChange={this.handleChange}></input>
+                    </li>
+                    <li>
+                        <label htmlFor='release_year'>Year Released</label>
+                        <input type='text' name='release_year' onChange={this.handleChange}></input>
                     </li>
                     <li>
                         <label htmlFor='image_url'>Image</label>
