@@ -66,7 +66,7 @@ class AdminDashboardPage extends Component {
                     </li>
                     <li>
                         <label htmlFor='summary'>Summary</label>
-                        <input type='text' name='summary' onChange={this.handleChange} required></input>
+                        <textarea type='text' name='summary' onChange={this.handleChange} required></textarea>
                     </li>
                     <li>
                         <label htmlFor='release_year'>Year Released</label>
