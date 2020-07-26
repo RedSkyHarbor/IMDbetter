@@ -9,6 +9,7 @@ class UserReviews extends Component {
             comments: [],
             review : '',
             rating: 1,
+            res_message: ''
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -34,11 +35,13 @@ class UserReviews extends Component {
         )
         .then(res => {
             // refresh comments immediately
+            this.setState({ res_message: 'Thank you for your review' });
             fetch('/api/comments/' + this.props.movieId)
             .then(res => res.json())
                 .then(comments => this.setState({ comments }));
         })
         .catch(err => {
+            this.setState({ res_message: 'You have already submit a review for this movie' });
             console.log('submit review err', err);
         })
         event.preventDefault();
@@ -60,6 +63,7 @@ class UserReviews extends Component {
                         <form onSubmit={this.handleSubmit}>
                         <fieldset>
                             <legend>Review this movie</legend>
+                            <div>{this.state.res_message}</div>
                             <ul>
                                 <li>
                                     <label htmlFor='review'>Review:</label>
