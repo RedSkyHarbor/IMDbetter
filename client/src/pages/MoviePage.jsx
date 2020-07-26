@@ -68,7 +68,6 @@ class MoviePage extends Component {
         let movieId = localStorage.getItem('movieId');
         return (
             <div className='container'>
-                <h1>Logged status: {this.props.loggedInStatus}</h1>
                 <Movie movieId={movieId} />
                 <UserReviews
                     movieId={movieId}

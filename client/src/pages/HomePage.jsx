@@ -12,7 +12,6 @@ class HomePage extends Component {
     render() {
         return(
             <div className='container'>
-                <h1>Logged status: {this.props.loggedInStatus}</h1>
                 <AllMovies />
             </div>
         );
