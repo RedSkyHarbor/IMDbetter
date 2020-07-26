@@ -54,6 +54,7 @@ class App extends Component {
 			loggedInStatus: "NOT_LOGGED_IN",
 			user: {}
 		});
+		window.location.replace('/');
 	}
 
 	render() {
