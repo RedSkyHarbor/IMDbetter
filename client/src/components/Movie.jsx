@@ -21,7 +21,7 @@ class Movie extends Component {
                     <h1>Title: {d.title}</h1>
                     <img alt='movie poster' style={{ width: 200, height: 300 }} src={d.picture_url} />
                     <p>Description: {d.summary}</p>
-                    <p>Rating: {d.rating}</p>
+                    <p>Rating: {d.avg_rating}</p>
                     <p>Release in: {d.release_year}</p>    
                 </div>  
             )}

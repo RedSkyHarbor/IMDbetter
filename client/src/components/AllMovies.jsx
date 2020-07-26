@@ -50,7 +50,7 @@ class AllMovies extends Component {
                             </h1>
                             <img alt='movie poster' style={{ width: 200, height: 300 }} src={movie.picture_url} />
                             <p>{movie.summary}</p>
-                            <p>{movie.rating}</p>
+                            <p>{movie.avg_rating}</p>
                             <p>{movie.release_year}</p>
                         </li>
                     )}
