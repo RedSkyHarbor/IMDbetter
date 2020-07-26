@@ -39,22 +39,20 @@ class AllMovies extends Component {
         return (
             <div>
                 <input type='text' placeholder='Search IMDbetter' onChange={this.handleChange} />
-                <ul>
                     { movies.map(movie =>
-                        <li key={movie.id}>
+                        <div key={movie.id}>
+                            <img alt='movie poster' style={{ width: 200, height: 300 }} src={movie.picture_url} />
                             <h1>
                                 <Link
                                     onClick={() => this.addMovieIdToLocalStorage(movie.id)}
                                     to={{pathname: `/movie/${movie.slug}`}}>{movie.title}
                                 </Link>
                             </h1>
-                            <img alt='movie poster' style={{ width: 200, height: 300 }} src={movie.picture_url} />
+                            <p>({movie.release_year})</p>
+                            <p>{movie.avg_rating ? movie.avg_rating : 'No user reviews yet'}</p>
                             <p>{movie.summary}</p>
-                            <p>{movie.avg_rating}</p>
-                            <p>{movie.release_year}</p>
-                        </li>
+                        </div>
                     )}
-                </ul>
             </div>
         );
     }

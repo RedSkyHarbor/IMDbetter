@@ -16,15 +16,15 @@ class Movie extends Component {
     render() { 
         return (
             <>
-            {this.state.data.map(d =>
-                <div key={d.id}>
-                    <h1>Title: {d.title}</h1>
-                    <img alt='movie poster' style={{ width: 200, height: 300 }} src={d.picture_url} />
-                    <p>Description: {d.summary}</p>
-                    <p>Rating: {d.avg_rating}</p>
-                    <p>Release in: {d.release_year}</p>    
-                </div>  
-            )}
+                {this.state.data.map(d =>
+                    <div key={d.id}>
+                        <img alt='movie poster' style={{ width: 200, height: 300 }} src={d.picture_url} />
+                        <h1>{d.title}</h1>
+                        <p>({d.release_year})</p>
+                        <p>{d.avg_rating ? d.avg_rating : 'No user reviews yet'}</p>
+                        <p>{d.summary}</p>
+                    </div>  
+                )}
             </>
         );
     }
