@@ -48,7 +48,7 @@ class AllMovies extends Component {
                                 </Link>
                             </h1>
                             <p>({movie.release_year})</p>
-                            <p>{movie.avg_rating ? movie.avg_rating : 'No user reviews yet'}</p>
+                            <p>{movie.avg_rating ? `Average rating: ${movie.avg_rating} out of 10` : 'No user reviews yet'}</p>
                             <p>{movie.summary}</p>
                         </div>
                     )}
