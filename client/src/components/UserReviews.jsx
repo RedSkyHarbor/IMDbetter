@@ -1,4 +1,5 @@
 import React, { Component} from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class UserReviews extends Component {
@@ -7,7 +8,7 @@ class UserReviews extends Component {
         this.state = { 
             comments: [],
             review : '',
-            rating: 1
+            rating: 1,
         }
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -22,7 +23,7 @@ class UserReviews extends Component {
     handleSubmit = (event) => {
         const { review, rating } = this.state;
         axios
-            .post('/api/review', {
+            .post('/api/review/create', {
                 comment: {
                     review: review,
                     rating: rating,
@@ -32,6 +33,7 @@ class UserReviews extends Component {
             { withCredentials: true }
         )
         .then(res => {
+            // refresh comments immediately
             fetch('/api/comments/' + this.props.movieId)
             .then(res => res.json())
                 .then(comments => this.setState({ comments }));
@@ -49,43 +51,47 @@ class UserReviews extends Component {
         });
     }
 
-    // TODO check if userId already has a comment with this movieId, this.props.movieId
-    // TODO comment must be editable
-
     render() {
         const { comments } = this.state;
         const loggedIn = this.props.loggedInStatus === "LOGGED_IN" ? true : false;
         return (
             <div>
+                <div style={{ display: loggedIn ? 'block' : 'none' }}>
+                        <form onSubmit={this.handleSubmit}>
+                        <fieldset>
+                            <legend>Review this movie</legend>
+                            <ul>
+                                <li>
+                                    <label htmlFor='review'>Review:</label>
+                                    <textarea type='text' name='review' onChange={this.handleChange} required />
+                                </li>
+                                <li>
+                                    <select name='rating' onChange={this.handleChange}>
+                                        <option value='1'>1</option>
+                                        <option value='2'>2</option>
+                                        <option value='3'>3</option>
+                                        <option value='4'>4</option>
+                                        <option value='5'>5</option>
+                                        <option value='6'>6</option>
+                                        <option value='7'>7</option>
+                                        <option value='8'>8</option>
+                                        <option value='9'>9</option>
+                                        <option value='10'>10</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    <button type='submit'>Submit Review</button>
+                                </li>
+                            </ul>
+                        </fieldset>
+                    </form>
+                </div>
+                
+                <div style={{ display: loggedIn ? 'none' : 'Block' }}>
+                    <p>Want to leave a review?</p>
+                    <Link to='/registration'>Log in or create an account</Link>
+                </div>
                 <h3>User Reviews</h3>
-                <form style={{ display: loggedIn ? 'block' : 'none' }} onSubmit={this.handleSubmit}>
-                    <fieldset>
-                        <legend>Review this movie</legend>
-                        <ul>
-                            <li>
-                                <label htmlFor='review'>Review:</label>
-                                <textarea type='text' name='review' onChange={this.handleChange} required />
-                            </li>
-                            <li>
-                                <select name='rating' onChange={this.handleChange}>
-                                    <option value='1'>1</option>
-                                    <option value='2'>2</option>
-                                    <option value='3'>3</option>
-                                    <option value='4'>4</option>
-                                    <option value='5'>5</option>
-                                    <option value='6'>6</option>
-                                    <option value='7'>7</option>
-                                    <option value='8'>8</option>
-                                    <option value='9'>9</option>
-                                    <option value='10'>10</option>
-                                </select>
-                            </li>
-                            <li>
-                                <button type='submit'>Submit Review</button>
-                            </li>
-                        </ul>
-                    </fieldset>
-                </form>
                 <ul>
                     { comments.map(comment => 
                     <li key={comment.id}>
