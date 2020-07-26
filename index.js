@@ -177,9 +177,10 @@ const submitReview = (request, response) => {
 						});				
 					});
 				});
+				response.status(200).send('Inserted');
 			});
 		} else {
-			response.status(405);
+			response.status(405).send('Duplicate');
 		}
 	});
 
