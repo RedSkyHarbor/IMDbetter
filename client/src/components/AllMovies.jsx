@@ -30,7 +30,6 @@ class AllMovies extends Component {
     }
 
     addMovieIdToLocalStorage = (id) => {
-        console.log('adding movie id to local storage', id);
         localStorage.setItem('movieId', id);
     }
 
