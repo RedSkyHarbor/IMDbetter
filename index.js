@@ -74,7 +74,6 @@ const getComments = (requests, response) => {
 }
 
 // TODO enforce only allowing unique usernames and passwords
-// TODO Likely wont work always
 const createAccount = (request, response) => {
 	const { username, password, email, is_admin } = request.body.user;
 	pool.query('INSERT INTO users (uname, pword, email) VALUES ($1, $2, $3)', [username, password, email], (error, results) => {
@@ -141,13 +140,9 @@ const submitReview = (request, response) => {
 	const [ username, userId ] = cookie.split('-');
 	let avg_rating = 0;
 
-	// check if user has made comment on movie already
-	// if yes, throw error or something
-	// else INSERT into comments AND movie_ratings then update avg_review in movies
 
 	console.log('movieid', movieId, 'userid', userId);
 
-	// TODO if results.rows show that user has already left a comment, return unauth
 	pool.query('SELECT COUNT(*) FROM comments WHERE movieId=$1 and userId=$2', [movieId, userId], (error, results) => {
 		if (error) {
 			throw error;
@@ -221,25 +216,15 @@ const logout = (request, response) => {
 }
 
 app.route('/api').get(getAllMovies)
-
 app.route('/api/movie/:id').get(getMovieById)
-
 app.route('/api/comments/:id').get(getComments)
-
 app.route('/api/fuzzysearch/:substring').get(getMovieByPartialTitle)
-
 app.route('/api/registration').post(createAccount)
-
 app.route('/api/sessions').post(login)
-
 app.route('/api/logged_in/').get(checkIfLoggedIn)
-
 app.route('/api/logout').delete(logout)
-
 app.route('/api/review/create').post(submitReview)
-
 app.route('/api/insert_movie').post(insert_movie)
-
 app.route('/api/review/check').post(checkIfFirstReview)
 
 // Starts server
