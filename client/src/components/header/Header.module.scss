@@ -1,5 +1,5 @@
-$primary-black: #000000;
-$secondary-black: #181818;
+@import '../../variables.scss';
+
 
 .header {
   background-color: $secondary-black;
