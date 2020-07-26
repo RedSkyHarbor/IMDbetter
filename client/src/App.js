@@ -9,7 +9,7 @@ import UserAuthPage from './pages/UserAuthPage';
 import AdminLogin from './components/auth/AdminLogin';
 import AdminDashboardPage from './pages/AdminDashboardPage';
 
-import './App.css';
+import './App.scss';
 
 class App extends Component {
 	constructor() {
