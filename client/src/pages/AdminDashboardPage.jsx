@@ -9,12 +9,17 @@ class AdminDashboardPage extends Component {
         this.state = {
             title: '',
             summary: '',
-            release_year: 0,
+            release_year: '',
             image_url: '',
             response: ''
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.clearForm = this.clearForm.bind(this);
+    }
+
+    clearForm = () => {
+        document.getElementById('insert-movie-form').reset();
     }
 
     handleSubmit = (event) => {
@@ -32,7 +37,8 @@ class AdminDashboardPage extends Component {
         )
         .then(res => {
             if (res.status === 204) {
-                this.setState({ response: 'Movie inserted successfully'})
+                this.setState({ response: 'Movie inserted successfully' })
+               this.clearForm();
             }
         })
         .catch(err => {
@@ -53,22 +59,22 @@ class AdminDashboardPage extends Component {
         return (
             <div>
                 <h2>{response}</h2>
-                <form onSubmit={this.handleSubmit}>
+                <form id='insert-movie-form' onSubmit={this.handleSubmit}>
                     <li>
                         <label htmlFor='title'>Title</label>
-                        <input type='text' name='title' onChange={this.handleChange}></input>
+                        <input type='text' name='title' onChange={this.handleChange} required></input>
                     </li>
                     <li>
                         <label htmlFor='summary'>Summary</label>
-                        <input type='text' name='summary' onChange={this.handleChange}></input>
+                        <input type='text' name='summary' onChange={this.handleChange} required></input>
                     </li>
                     <li>
                         <label htmlFor='release_year'>Year Released</label>
-                        <input type='text' name='release_year' onChange={this.handleChange}></input>
+                        <input type='text' name='release_year' onChange={this.handleChange} required></input>
                     </li>
                     <li>
                         <label htmlFor='image_url'>Image</label>
-                        <input type='text' name='image_url' onChange={this.handleChange}></input>
+                        <input type='text' name='image_url' onChange={this.handleChange} required></input>
                     </li>
                     <li>
                         <button type='submit'>Add movie</button>
