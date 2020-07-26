@@ -23,11 +23,6 @@ const cookieConfig = {
 	sameSite: 'lax',
 }
 
-// Testing endpoint
-app.get('/hello', (req, res) => {
-	res.json({ info: 'Hello World!' });
-});
-
 // API endpoints
 const getAllMovies = (request, response) => {
 	pool.query('SELECT * FROM movies', (error, results) => {
@@ -143,35 +138,71 @@ const checkIfLoggedIn = (request, response) => {
 const submitReview = (request, response) => {
 	const { review, rating, movieId } = request.body.comment;
 	const cookie = request.cookies.userLoggedIn || request.cookies.adminLoggedIn;
-	const username = cookie.split('-')[0];
-	const userId= cookie.split('-')[1];
-	
+	const [ username, userId ] = cookie.split('-');
+	let avg_rating = 0;
+
+	// check if user has made comment on movie already
+	// if yes, throw error or something
+	// else INSERT into comments AND movie_ratings then update avg_review in movies
+
+	console.log('movieid', movieId, 'userid', userId);
+
 	// TODO if results.rows show that user has already left a comment, return unauth
 	pool.query('SELECT COUNT(*) FROM comments WHERE movieId=$1 and userId=$2', [movieId, userId], (error, results) => {
 		if (error) {
 			throw error;
 		}
-		/*
+		
 		console.log('COUNT results',results.rows[0].count);
-		if (parseInt(results.rows[0].count) >= 1){
-			console.log('dont allow more comments');
-			response.sendStatus(401);
-			return;
-		}
-		*/
-	})
+		if (results.rows[0].count == 0) {
+			pool.query('INSERT INTO comments (movieId, userId, comment, rating) VALUES ($1, $2, $3, $4)', [movieId, userId, review, rating], (error, results) => {
+				if (error) {
+					throw error;
+				}
 
-	pool.query('INSERT INTO comments (movieId, userId, comment, rating) VALUES ($1, $2, $3, $4)', [movieId, userId, review, rating], (error, results) => {
+				pool.query('INSERT INTO movie_ratings (movieId, userId, rating) VALUES ($1, $2, $3)', [movieId, userId, rating], (error, results) => {
+					if (error) {
+						throw error;
+					}
+
+					pool.query('SELECT COUNT(*), SUM(rating) FROM movie_ratings WHERE movieId=$1', [movieId], (error, results) => {
+						if (error) {
+							throw error;
+						}
+
+						console.log(results.rows);
+						let num_reviews = results.rows[0].count;
+						let sum_ratings = results.rows[0].sum;
+						avg_rating = sum_ratings / num_reviews;
+
+						pool.query('UPDATE movies SET avg_rating=$1 WHERE id=$2', [avg_rating, movieId], (error, results) => {
+							if (error) {
+								throw error;
+							}
+						});				
+					});
+				});
+			});
+		} else {
+			response.status(405);
+		}
+	});
+
+}
+
+const checkIfFirstReview = (request, response) => {
+	const { movieId } = request.body.review;
+	const cookie = request.cookies.userLoggedIn || request.cookies.adminLoggedIn;
+	const [ userId ] = cookie.split('-')[1];
+
+	pool.query('SELECT COUNT(*) FROM comments WHERE movieId=$1 and userId=$2', [movieId, userId], (error, results) => {
 		if (error) {
 			throw error;
 		}
-		// TODO should this be a string?
-		response.status('200').send('comment inserted');
-	})
-	
+		response.status('200').send(results.rows[0].count);
+	});
 }
 
-// TODO
 const insert_movie = (request, response) => {
 	const { title, summary, release_year, image_url } = request.body.movie;
 	let slug = title.replace(/\s+/g, '-').toLowerCase();
@@ -205,9 +236,11 @@ app.route('/api/logged_in/').get(checkIfLoggedIn)
 
 app.route('/api/logout').delete(logout)
 
-app.route('/api/review').post(submitReview)
+app.route('/api/review/create').post(submitReview)
 
 app.route('/api/insert_movie').post(insert_movie)
+
+app.route('/api/review/check').post(checkIfFirstReview)
 
 // Starts server
 app.listen(port, () => {
