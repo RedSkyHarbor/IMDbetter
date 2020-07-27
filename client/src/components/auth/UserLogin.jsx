@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import styles from './UserLogin.module.scss';
 
 class UserLogin extends Component {
     constructor(props) {
@@ -53,41 +54,44 @@ class UserLogin extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <fieldset>
-                    <legend>Log In</legend>
-                    <h2 style={{ display: this.state.display_error_message ? 'block' : 'none' }}>Account not found</h2>
-                    <ul>
-                        <li>
-                            <label htmlFor='username'>Username:</label>
-                            <input
-                                type='text'
-                                id='username' 
-                                name='username' 
-                                value={this.state.username}
-                                onChange={this.handleChange}
-                                required 
-                            />
-                        </li>
-                        <li>
-                            <label htmlFor='password'>Password:</label>
-                            <input 
-                                type='password' 
-                                id='password' 
-                                name='password'
-                                value={this.state.password} 
-                                onChange={this.handleChange}
-                                required 
-                            />
-                        </li>
-                        <li>
-                            <button type='submit'>Log In</button>
-                            {/* <button type='button' onClick={ () => this.handleSwitchView('reset')}>Reset Password</button> */ }
-                            <button type='button' onClick={ () => this.handleSwitchView('signup')}>Create Account</button>
-                        </li>
-                    </ul>
-                </fieldset>
-            </form>
+            <div className={styles.login_container}>
+                <form className={styles.login_form} onSubmit={this.handleSubmit}>
+                    <fieldset>
+                        <legend>Log In</legend>
+                        <ul>
+                            <li>
+                                <h2 style={{ display: this.state.display_error_message ? 'block' : 'none' }}>Account not found</h2>
+                            </li>
+                            <li>
+                                <label htmlFor='username'>Username:</label>
+                                <input
+                                    type='text'
+                                    id='username' 
+                                    name='username' 
+                                    value={this.state.username}
+                                    onChange={this.handleChange}
+                                    required 
+                                />
+                            </li>
+                            <li>
+                                <label htmlFor='password'>Password:</label>
+                                <input 
+                                    type='password' 
+                                    id='password' 
+                                    name='password'
+                                    value={this.state.password} 
+                                    onChange={this.handleChange}
+                                    required 
+                                />
+                            </li>
+                            <li>
+                                <button type='submit'>Log In</button>
+                                <button type='button' onClick={ () => this.handleSwitchView('signup')}>Create Account</button>
+                            </li>
+                        </ul>
+                    </fieldset>
+                </form>
+            </div>
         );
     }
 }
