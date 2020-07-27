@@ -1,0 +1,65 @@
+@import '../variables.scss';
+
+.login_container {
+    overflow: hidden;
+    margin-bottom: 15px;
+    display: flex;
+}
+
+.login_form {
+    margin: 0 auto;
+    padding: 20px;
+    color: white;
+    border-radius: 10px;
+    
+
+    fieldset {
+        margin: 0;
+        border: none;
+        border-radius: 10px;
+        background-color: $third-black;
+        width: 50%;
+    }
+
+    legend {
+        padding: 5px;
+        border-radius: 5px;
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+
+        li {
+            display: grid;
+            align-items: center;
+            margin: 10px;
+
+            label {
+                text-align: left;
+                padding-bottom: 2px;
+            }
+        
+            input {
+                padding: 5px;
+                border-radius: 5px;
+                &:hover {
+                    border: 2px solid gold;
+                }
+            }
+
+            button {
+                margin-top: 10px;
+                padding: 5px;
+                border-radius: 5px;
+                &:hover {
+                    border: 2px solid gold;
+                }
+            }
+        }
+    }
+
+
+
+
+}
