@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './pages.scss'
 
 import UserLogin from '../components/auth/UserLogin';
 import UserResetPassword from '../components/auth/UserResetPassword';
@@ -46,9 +47,10 @@ class UserAuthPage extends Component {
 
     render() {
         return (
-            <div>
-                <h1>Logged status: {this.props.loggedInStatus}</h1>
-                {this.currentView()}
+            <div className='content'>
+                <div className='container'>
+                    {this.currentView()}
+                </div>
             </div>
         );
     }

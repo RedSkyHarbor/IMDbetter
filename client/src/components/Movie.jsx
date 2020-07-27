@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import styles from './Movie.module.scss';
+
 
 class Movie extends Component {
     constructor(props) {
@@ -15,17 +17,19 @@ class Movie extends Component {
 
     render() { 
         return (
-            <>
+            <div className={styles.movie_container}>
                 {this.state.data.map(d =>
-                    <div key={d.id}>
-                        <img alt='movie poster' style={{ width: 200, height: 300 }} src={d.picture_url} />
-                        <h1>{d.title}</h1>
-                        <p>({d.release_year})</p>
-                        <p>{d.avg_rating ? `Average rating: ${d.avg_rating} out of 10` : 'No user reviews yet'}</p>
-                        <p>{d.summary}</p>
+                    <div className={styles.movie} key={d.id}>
+                        <img className={styles.movie_poster} alt='movie poster' style={{ width: 200, height: 300 }} src={d.picture_url} />
+                        <div className={styles.movie_details}>
+                            <h1 className={styles.title}>{d.title}</h1>
+                            <p className={styles.release}>({d.release_year})</p>
+                            <p className={styles.rating}><i style={{color: 'gold'}} class="fas fa-star"></i>{d.avg_rating ? ` Average rating: ${d.avg_rating} out of 10` : ' No user reviews yet'}</p>
+                            <p className={styles.summary}>{d.summary}</p>
+                        </div>
                     </div>  
                 )}
-            </>
+            </div>
         );
     }
 }

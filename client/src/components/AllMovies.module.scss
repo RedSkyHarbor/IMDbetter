@@ -1,0 +1,58 @@
+@import '../variables.scss';
+
+/* movie rating */
+.rating {
+    color: lightgray;
+    margin: 0;
+}
+
+/* movie poster*/ 
+.poster {
+    width: 200px;
+    height: 300px;
+}
+
+/* movie title link */
+.title {
+    color: white;
+    text-decoration: none;
+}
+
+.title:visited {
+    color: white;
+    text-decoration: none;
+}
+
+.title:hover {
+    color:white;
+    text-decoration: underline;
+}
+
+/* parent element of each movie*/
+.movie {
+    margin-top: 15px;
+    flex-wrap: wrap;
+}
+
+/* parent of .movie */
+.movies_container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    background-color: $third-black;
+}
+
+/* outermost div */
+.all_movies {
+    overflow: auto;
+}
+
+/* searchbar*/
+.search {
+    display: block;
+    margin: 0 auto;
+    width: 50vw;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}

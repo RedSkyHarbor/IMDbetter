@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './pages.scss';
 
 import AllMovies from '../components/AllMovies';
 
@@ -11,9 +12,10 @@ class HomePage extends Component {
     
     render() {
         return(
-            <div>
-                <h1>Logged status: {this.props.loggedInStatus}</h1>
-                <AllMovies />
+            <div className='content'>
+                <div className='container'>
+                    <AllMovies />
+                </div>
             </div>
         );
     }

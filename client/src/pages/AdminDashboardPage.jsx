@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import styles from './AdminDashBoardPage.module.scss';
+import './pages.scss'
 
 //TODO only accessible with admin cookie MUST BE LOCKED BEHIND THAT LOGIN
 //send data to backend with axios
@@ -50,36 +52,45 @@ class AdminDashboardPage extends Component {
 
     handleChange = (event) => {
         this.setState({
-            [event.target.name] : event.target.value
+            [event.target.name] : event.target.value,
+            response: ''
         });
     }
 
     render () {
         let { response } = this.state;
         return (
-            <div>
-                <h2>{response}</h2>
-                <form id='insert-movie-form' onSubmit={this.handleSubmit}>
-                    <li>
-                        <label htmlFor='title'>Title</label>
-                        <input type='text' name='title' onChange={this.handleChange} required></input>
-                    </li>
-                    <li>
-                        <label htmlFor='summary'>Summary</label>
-                        <input type='text' name='summary' onChange={this.handleChange} required></input>
-                    </li>
-                    <li>
-                        <label htmlFor='release_year'>Year Released</label>
-                        <input type='text' name='release_year' onChange={this.handleChange} required></input>
-                    </li>
-                    <li>
-                        <label htmlFor='image_url'>Image</label>
-                        <input type='text' name='image_url' onChange={this.handleChange} required></input>
-                    </li>
-                    <li>
-                        <button type='submit'>Add movie</button>
-                    </li>
-                </form>
+            <div className='content'>
+                <div className='container'>
+                    <div className={styles.form_container}>
+                        <form className={styles.insert_form} id='insert-movie-form' onSubmit={this.handleSubmit}>
+                            <ul>
+                                <li>
+                                    {response}
+                                </li>
+                                <li>
+                                    <label htmlFor='title'>Title</label>
+                                    <input type='text' name='title' onChange={this.handleChange} required></input>
+                                </li>
+                                <li>
+                                    <label htmlFor='summary'>Summary</label>
+                                    <textarea type='text' name='summary' onChange={this.handleChange} required></textarea>
+                                </li>
+                                <li>
+                                    <label htmlFor='release_year'>Year Released</label>
+                                    <input type='text' name='release_year' onChange={this.handleChange} required></input>
+                                </li>
+                                <li>
+                                    <label htmlFor='image_url'>Image URL</label>
+                                    <input type='text' name='image_url' onChange={this.handleChange} required></input>
+                                </li>
+                                <li>
+                                    <button type='submit'>Add movie</button>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                </div>
             </div>
         )
     }

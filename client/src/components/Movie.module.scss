@@ -1,0 +1,55 @@
+@import '../variables.scss';
+
+/* outermost parent */
+.movie_container {
+    overflow: auto;
+}
+
+/* contains all movie details */
+.movie {
+    background-color: $third-black;
+    margin-top: 15px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.movie_details {
+    color: white;
+    margin-left: 25px;
+}
+
+.title {
+    display: inline-block;
+    margin-bottom: 0;
+}
+
+.release {
+    display: inline-block;
+    color: lightgrey;
+}
+
+.movie_poster {
+    height: 300px;
+    width: 200px;
+    margin-left: 25px;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    flex-shrink: 0;
+}
+
+.rating {
+    margin-top: 0;
+}
+
+.summary {
+    margin-top: 0;
+}
+
+/* collapse on page too small */
+
+/* phone size */
+@media (min-width: 768px) {
+    .movie {
+        flex-wrap: nowrap;
+    }
+}

@@ -1,6 +1,7 @@
 import React, { Component} from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import styles from './UserReviews.module.scss';
 
 class UserReviews extends Component {
     constructor(props) {
@@ -58,18 +59,19 @@ class UserReviews extends Component {
         const { comments } = this.state;
         const loggedIn = this.props.loggedInStatus === "LOGGED_IN" ? true : false;
         return (
-            <div>
-                <div style={{ display: loggedIn ? 'block' : 'none' }}>
+            <div className={styles.reviews_container}>
+                <div className={styles.comment_or_login} style={{ display: loggedIn ? 'block' : 'none' }}>
                         <form onSubmit={this.handleSubmit}>
                         <fieldset>
                             <legend>Review this movie</legend>
                             <div>{this.state.res_message}</div>
                             <ul>
                                 <li>
-                                    <label htmlFor='review'>Review:</label>
+                                    <label htmlFor='review'>Review:</label> <br />
                                     <textarea type='text' name='review' onChange={this.handleChange} required />
                                 </li>
                                 <li>
+                                    Rating: <br />
                                     <select name='rating' onChange={this.handleChange}>
                                         <option value='1'>1</option>
                                         <option value='2'>2</option>
@@ -101,6 +103,7 @@ class UserReviews extends Component {
                     <li key={comment.id}>
                         <p>Rated {comment.rating} out of 10</p>
                         <p>{comment.comment}</p>
+                        <hr />
                     </li> 
                     )}
                 </ul>

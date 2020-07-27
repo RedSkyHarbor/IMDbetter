@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+
+import styles from './AllMovies.module.scss';
 
 class AllMovies extends Component {
     constructor(props) {
@@ -36,22 +38,26 @@ class AllMovies extends Component {
     render() {
         const { movies } = this.state;
         return (
-            <div>
-                <input type='text' placeholder='Search IMDbetter' onChange={this.handleChange} />
-                    { movies.map(movie =>
-                        <div key={movie.id}>
-                            <img alt='movie poster' style={{ width: 200, height: 300 }} src={movie.picture_url} />
-                            <h1>
-                                <Link
-                                    onClick={() => this.addMovieIdToLocalStorage(movie.id)}
-                                    to={{pathname: `/movie/${movie.slug}`}}>{movie.title}
-                                </Link>
-                            </h1>
-                            <p>({movie.release_year})</p>
-                            <p>{movie.avg_rating ? `Average rating: ${movie.avg_rating} out of 10` : 'No user reviews yet'}</p>
-                            <p>{movie.summary}</p>
-                        </div>
-                    )}
+            <div className={styles.all_movies}>
+                <input className={styles.search} type='text' placeholder='Search IMDbetter' onChange={this.handleChange} />
+                <div className={styles.movies_container}>
+                        { movies.map(movie =>
+                            <div className={styles.movie} key={movie.id}>
+                                <img className={styles.poster} alt='movie poster' src={movie.picture_url} />
+                                <p className={styles.rating}>
+                                    <i style={{color: 'gold'}} class="fas fa-star"></i>
+                                    {movie.avg_rating ? ` ${movie.avg_rating}` : ' No user reviews yet'}
+                                </p>
+                                    <NavLink
+                                        className={styles.title}
+                                        onClick={() => this.addMovieIdToLocalStorage(movie.id)}
+                                        to={{pathname: `/movie/${movie.slug}`}}
+                                        >
+                                            {movie.title}
+                                    </NavLink>
+                            </div>
+                        )}
+                </div>
             </div>
         );
     }

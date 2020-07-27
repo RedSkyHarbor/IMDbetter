@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-
+import styles from './Header.module.scss';
 
 class Header extends Component {
     constructor(props) {
@@ -21,11 +21,18 @@ class Header extends Component {
     // Conditionally show log in link vs log out button based on logged in state
     render() {
         return (
-            <header>
-                <Link to='/' >IMDbetter</Link>
-                <br />
-                <Link to='/registration'>Log in</Link>
-                <button onClick={() => this.handleLogoutClick()}>Logout</button>
+            <header className={styles.header}>
+                <div className={styles.logo}>
+                    <Link to='/'>IMDbetter</Link>
+                </div>
+                
+                <div className={styles.log_switch}>
+                    {this.props.loggedInStatus === "LOGGED_IN" ? (
+                        <button onClick={() => this.handleLogoutClick()}>Logout</button>
+                    ):(
+                        <Link to='/registration'>Log in</Link>
+                    )}
+                </div>
             </header>
         );
     }
