@@ -1,0 +1,32 @@
+@import '../variables.scss';
+
+/* outermost parent */
+.movie_container {
+    overflow: auto
+}
+
+/* contains all movie details */
+.movie {
+    background-color: $third-black;
+    display: flex;
+    margin-top: 15px;
+    color: white;
+}
+
+.title {
+    display: inline-block;
+}
+
+.release {
+    display: inline-block;
+    color: lightgrey;
+    margin-left: 10px;
+}
+
+.movie_poster {
+    margin: 25px 25px 25px 25px;
+}
+
+.rating {
+    margin-top: 0;
+}
