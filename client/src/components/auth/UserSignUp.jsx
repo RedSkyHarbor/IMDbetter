@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import styles from './UserSignUp.module.scss';
 
 class UserSignUp extends Component {
     constructor(props) {
@@ -52,50 +53,52 @@ class UserSignUp extends Component {
 
     render() {
         return (
-            <form onSubmit={this.handleSubmit}>
-                <fieldset>
-                    <legend>Sign Up</legend>
-                    <ul>
-                        <li>
-                            <label htmlFor='username'>Username:</label>
-                            <input
-                                type='text'
-                                id='username' 
-                                name='username' 
-                                value={this.state.username}
-                                onChange={this.handleChange}
-                                required 
-                            />
-                        </li>
-                        <li>
-                            <label htmlFor='email'>Email:</label>
-                            <input
-                                type='email'
-                                id='email' 
-                                name='email' 
-                                value={this.state.email}
-                                onChange={this.handleChange}
-                                required 
-                            />
-                        </li>
-                        <li>
-                            <label htmlFor='password'>Password:</label>
-                            <input 
-                                type='password' 
-                                id='password' 
-                                name='password'
-                                value={this.state.password} 
-                                onChange={this.handleChange}
-                                required 
-                            />
-                        </li>
-                        <li>
-                            <button type='submit'>Register</button>
-                            <button type='button' onClick={ () => this.handleSwitchView('login')}>Return to Log In</button>
-                        </li>
-                    </ul>
-                </fieldset>
-            </form>
+            <div className={styles.signup_container}>
+                <form className={styles.signup_form} onSubmit={this.handleSubmit}>
+                    <fieldset>
+                        <legend>Sign Up</legend>
+                        <ul>
+                            <li>
+                                <label htmlFor='username'>Username:</label>
+                                <input
+                                    type='text'
+                                    id='username' 
+                                    name='username' 
+                                    value={this.state.username}
+                                    onChange={this.handleChange}
+                                    required 
+                                />
+                            </li>
+                            <li>
+                                <label htmlFor='email'>Email:</label>
+                                <input
+                                    type='email'
+                                    id='email' 
+                                    name='email' 
+                                    value={this.state.email}
+                                    onChange={this.handleChange}
+                                    required 
+                                />
+                            </li>
+                            <li>
+                                <label htmlFor='password'>Password:</label>
+                                <input 
+                                    type='password' 
+                                    id='password' 
+                                    name='password'
+                                    value={this.state.password} 
+                                    onChange={this.handleChange}
+                                    required 
+                                />
+                            </li>
+                            <li>
+                                <button type='submit'>Register</button>
+                                <button type='button' onClick={ () => this.handleSwitchView('login')}>Return to Log In</button>
+                            </li>
+                        </ul>
+                    </fieldset>
+                </form>
+            </div>
         );
     }
 }
