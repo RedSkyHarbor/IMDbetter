@@ -1,0 +1,29 @@
+.reviews_container {
+    overflow: hidden;
+    color: white;
+    ul {
+        list-style-type: none;
+    }
+}
+
+.comment_or_login {
+    margin-top: 15px;
+
+    textarea {
+        resize: vertical;
+        width: 98%;
+        height: 50px;
+    }
+
+    select {
+        text-align:center;
+        width: 98%;
+        height: 20px;
+    }
+
+    button {
+        margin-top: 20px;
+        width: 98%;
+        height: 40px;
+    }
+}
