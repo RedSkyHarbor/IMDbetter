@@ -4,6 +4,23 @@
     ul {
         list-style-type: none;
     }
+
+    a {
+        text-decoration: none;
+        color: lightcoral;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    a:visited {
+        color: lightcoral;
+    }
+
+    a:active {
+        color: lightcoral;
+    }
 }
 
 .comment_or_login {

@@ -94,8 +94,8 @@ class UserReviews extends Component {
                 </div>
                 
                 <div style={{ display: loggedIn ? 'none' : 'Block' }}>
-                    <p>Want to leave a review?</p>
-                    <Link to='/registration'>Log in or create an account</Link>
+                    <span>Want to leave a review?   </span>
+                    <Link to='/registration'>Then Log in or create an account.</Link>
                 </div>
                 <h3>User Reviews</h3>
                 <ul>
