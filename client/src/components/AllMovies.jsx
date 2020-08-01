@@ -46,7 +46,7 @@ class AllMovies extends Component {
                                 <img className={styles.poster} alt='movie poster' src={movie.picture_url} />
                                 <p className={styles.rating}>
                                     <i style={{color: 'gold'}} class="fas fa-star"></i>
-                                    {movie.avg_rating ? ` ${movie.avg_rating}` : ' No user reviews yet'}
+                                    {movie.avg_rating ? ` ${movie.avg_rating.toString().substr(0,3)}` : ' No user reviews yet'}
                                 </p>
                                     <NavLink
                                         className={styles.title}

@@ -24,7 +24,7 @@ class Movie extends Component {
                         <div className={styles.movie_details}>
                             <h1 className={styles.title}>{d.title}</h1>
                             <p className={styles.release}>({d.release_year})</p>
-                            <p className={styles.rating}><i style={{color: 'gold'}} class="fas fa-star"></i>{d.avg_rating ? ` Average rating: ${d.avg_rating} out of 10` : ' No user reviews yet'}</p>
+                            <p className={styles.rating}><i style={{color: 'gold'}} class="fas fa-star"></i>{d.avg_rating.toString().subtr(0,3) ? ` Average rating: ${d.avg_rating} out of 10` : ' No user reviews yet'}</p>
                             <p className={styles.summary}>{d.summary}</p>
                         </div>
                     </div>  
